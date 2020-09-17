@@ -22,4 +22,4 @@ install: pip install -r requirements_test.txt
 script: tox
 
 after_success:
-  - codecov
+  - codecov -e $TOXENV

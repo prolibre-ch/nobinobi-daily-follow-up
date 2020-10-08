@@ -85,6 +85,10 @@
                                 {% for period in day_value.periods.values %}
                                     {% if period.dayoff %}
                                         <td class="bg-dark-gradient">{% trans "Day off" %}</td>
+                                    {% elif period.holiday %}
+                                        <td class="bg-dark-gradient">{% trans "Holiday" %}</td>
+                                    {% elif period.closure %}
+                                        <td class="bg-dark-gradient">{% trans "Closure" %}</td>
                                     {% elif not period.status %}
                                         <td class="bg-dark-gradient">&nbsp;</td>
                                     {% else %}

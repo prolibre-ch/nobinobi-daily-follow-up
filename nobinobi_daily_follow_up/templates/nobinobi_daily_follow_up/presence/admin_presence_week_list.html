@@ -88,22 +88,33 @@
 
                                             {% for day_value in day.values %}
                                                 {% for period in day_value.periods.values %}
-                                                    <td class="{% if period.absence %}bg-danger-gradient{% elif period.status == "present" %}bg-success-gradient{% elif period.status == "leave" %}bg-dark-gradient{% elif period.status == "troubleshooting" %}bg-info{% elif period.status == "expected" %}bg-warning-gradient{% else %}bg-gray{% endif %}">
-                                                        <a style="{% if period.status == "leave" %}color: #FFF;{% else %}color: #000;{% endif %}"
-                                                           href="{% url 'nobinobi_daily_follow_up:Presence_detail_list' child.classroom_id %}">{{ child.usual_name }}</a>
-                                                        <a
-                                                                href="{% url 'nobinobi_child:Child_detail' pk=child.pk %}"><i
-                                                                class="far fa-eye"></i></a>
-                                                        {% if period.birthday %}
-                                                            <i class="fas fa-birthday-cake"></i>
-                                                        {% endif %}
-                                                        {% if child.childspecificneed %}
-                                                            <i class='fas fa-exclamation-triangle'></i>
-                                                        {% endif %}
-                                                        {% if display_age_group_in_presence %}
-                                                            <small>({{ child.age_group.name.0 }})</small> {% endif %}
-                                                        {% if period.absence %}
-                                                            <small>({{ period.absence.type }})</small>{% endif %}</td>
+                                                    {% if period.dayoff %}
+                                                        <td class="bg-dark-gradient">{% trans "Day off" %}</td>
+                                                    {% elif period.holiday %}
+                                                        <td class="bg-dark-gradient">{% trans "Holiday" %}</td>
+                                                    {% elif period.closure %}
+                                                        <td class="bg-dark-gradient">{% trans "Closure" %}</td>
+                                                    {% elif not period.status %}
+                                                        <td class="bg-dark-gradient">&nbsp;</td>
+                                                    {% else %}
+                                                        <td class="{% if period.absence %}bg-danger-gradient{% elif period.status == "present" %}bg-success-gradient{% elif period.status == "leave" %}bg-dark-gradient{% elif period.status == "troubleshooting" %}bg-info{% elif period.status == "expected" %}bg-warning-gradient{% else %}bg-gray{% endif %}">
+                                                            <a style="{% if period.status == "leave" %}color: #FFF;{% else %}color: #000;{% endif %}"
+                                                               href="{% url 'nobinobi_daily_follow_up:Presence_detail_list' child.classroom_id %}">{{ child.usual_name }}</a>
+                                                            <a
+                                                                    href="{% url 'nobinobi_child:Child_detail' pk=child.pk %}"><i
+                                                                    class="far fa-eye"></i></a>
+                                                            {% if period.birthday %}
+                                                                <i class="fas fa-birthday-cake"></i>
+                                                            {% endif %}
+                                                            {% if child.childspecificneed %}
+                                                                <i class='fas fa-exclamation-triangle'></i>
+                                                            {% endif %}
+                                                            {% if display_age_group_in_presence %}
+                                                                <small>({{ child.age_group.name.0 }})</small> {% endif %}
+                                                            {% if period.absence %}
+                                                                <small>({{ period.absence.type }})</small>{% endif %}
+                                                        </td>
+                                                    {% endif %}
                                                 {% endfor %}
                                             {% endfor %}
                                         </tr>
@@ -199,6 +210,10 @@
                                                             {% if period_type == "morning" %}
                                                                 {% if period.dayoff %}
                                                                     <td class="bg-dark-gradient">{% trans "Day off" %}</td>
+                                                                {% elif period.holiday %}
+                                                                    <td class="bg-dark-gradient">{% trans "Holiday" %}</td>
+                                                                {% elif period.closure %}
+                                                                    <td class="bg-dark-gradient">{% trans "Closure" %}</td>
                                                                 {% elif not period.status %}
                                                                     <td class="bg-dark-gradient">&nbsp;</td>
                                                                 {% else %}
@@ -327,6 +342,10 @@
                                                             {% if period_type == "afternoon" %}
                                                                 {% if period.dayoff %}
                                                                     <td class="bg-dark-gradient">{% trans "Day off" %}</td>
+                                                                {% elif period.holiday %}
+                                                                    <td class="bg-dark-gradient">{% trans "Holiday" %}</td>
+                                                                {% elif period.closure %}
+                                                                    <td class="bg-dark-gradient">{% trans "Closure" %}</td>
                                                                 {% elif not period.status %}
                                                                     <td class="bg-dark-gradient">&nbsp;</td>
                                                                 {% else %}

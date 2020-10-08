@@ -1,6 +1,6 @@
 arrow==0.16.0
 datetimerange==1.0.0
-django-admin-rangefilter==0.6.2
+django-admin-rangefilter==0.6.3
 django-appconf==1.0.4
 django-auto-one-to-one==3.3.1
 django-bootstrap-datepicker-plus==3.0.5

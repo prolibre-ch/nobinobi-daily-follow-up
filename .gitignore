@@ -30,7 +30,7 @@ htmlcov
 
 # Translations
 #*.mo
-
+bump
 # Mr Developer
 .mr.developer.cfg
 .project

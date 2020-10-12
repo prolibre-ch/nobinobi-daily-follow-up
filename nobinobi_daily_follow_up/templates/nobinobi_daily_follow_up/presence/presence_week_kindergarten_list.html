@@ -94,6 +94,10 @@
                                             {% for per in period.values %}
                                                 {% if per.dayoff %}
                                                     <td class="bg-dark-gradient">{% trans "Day off" %}</td>
+                                                {% elif per.holiday %}
+                                                    <td class="bg-dark-gradient">{% trans "Holiday" %}</td>
+                                                {% elif per.closure %}
+                                                    <td class="bg-dark-gradient">{% trans "Closure" %}</td>
                                                 {% elif not per.status %}
                                                     <td class="bg-dark-gradient">&nbsp;</td>
                                                 {% else %}
@@ -235,6 +239,10 @@
                                             {% for per in period.values %}
                                                 {% if per.dayoff %}
                                                     <td class="bg-dark-gradient">{% trans "Day off" %}</td>
+                                                {% elif per.holiday %}
+                                                    <td class="bg-dark-gradient">{% trans "Holiday" %}</td>
+                                                {% elif per.closure %}
+                                                    <td class="bg-dark-gradient">{% trans "Closure" %}</td>
                                                 {% elif not per.status %}
                                                     <td class="bg-dark-gradient">&nbsp;</td>
                                                 {% else %}

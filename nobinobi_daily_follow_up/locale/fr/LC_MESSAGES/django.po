@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-12 15:58+0200\n"
-"PO-Revision-Date: 2020-10-12 15:59+0200\n"
+"POT-Creation-Date: 2020-10-16 13:52+0200\n"
+"PO-Revision-Date: 2020-10-16 13:52+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -18,29 +18,33 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 2.4.1\n"
 
-#: .\nobinobi_daily_follow_up\forms.py:82
-#: .\nobinobi_daily_follow_up\forms.py:407
-#: .\nobinobi_daily_follow_up\forms.py:435
-#: .\nobinobi_daily_follow_up\forms.py:479
-#: .\nobinobi_daily_follow_up\forms.py:518
-#: .\nobinobi_daily_follow_up\forms.py:566
+#: .\nobinobi_daily_follow_up\forms.py:81
+#: .\nobinobi_daily_follow_up\forms.py:412
+#: .\nobinobi_daily_follow_up\forms.py:440
+#: .\nobinobi_daily_follow_up\forms.py:484
+#: .\nobinobi_daily_follow_up\forms.py:523
+#: .\nobinobi_daily_follow_up\forms.py:571
 msgid "Submit"
 msgstr "Envoyer"
 
-#: .\nobinobi_daily_follow_up\forms.py:144
+#: .\nobinobi_daily_follow_up\forms.py:143
 msgid "Presence already exists."
 msgstr "La présence existe déjà."
 
-#: .\nobinobi_daily_follow_up\forms.py:326
+#: .\nobinobi_daily_follow_up\forms.py:175
+msgid "The departure time is less than the arrival time."
+msgstr "L’heure de départ est inférieure à l’heure d’arrivée."
+
+#: .\nobinobi_daily_follow_up\forms.py:331
 #: .\nobinobi_daily_follow_up\models.py:420
 msgid "Staff"
 msgstr "Personnel"
 
-#: .\nobinobi_daily_follow_up\forms.py:351
+#: .\nobinobi_daily_follow_up\forms.py:356
 msgid "Check"
 msgstr "Vérifier"
 
-#: .\nobinobi_daily_follow_up\forms.py:352
+#: .\nobinobi_daily_follow_up\forms.py:357
 msgid ""
 "By checking this box you confirm that you want to delay taking the "
 "medication."
@@ -48,8 +52,8 @@ msgstr ""
 "En cochant cette case, vous confirmez que vous voulez retarder la prise du "
 "médicament."
 
-#: .\nobinobi_daily_follow_up\forms.py:374
-#: .\nobinobi_daily_follow_up\forms.py:535
+#: .\nobinobi_daily_follow_up\forms.py:379
+#: .\nobinobi_daily_follow_up\forms.py:540
 #: .\nobinobi_daily_follow_up\models.py:41
 #: .\nobinobi_daily_follow_up\models.py:312
 #: .\nobinobi_daily_follow_up\models.py:541
@@ -60,8 +64,8 @@ msgstr ""
 msgid "Child"
 msgstr "Enfant"
 
-#: .\nobinobi_daily_follow_up\forms.py:384
-#: .\nobinobi_daily_follow_up\forms.py:571
+#: .\nobinobi_daily_follow_up\forms.py:389
+#: .\nobinobi_daily_follow_up\forms.py:576
 #: .\nobinobi_daily_follow_up\models.py:46
 #: .\nobinobi_daily_follow_up\models.py:425
 #: .\nobinobi_daily_follow_up\models.py:545
@@ -71,25 +75,25 @@ msgstr "Enfant"
 msgid "Date"
 msgstr "Date"
 
-#: .\nobinobi_daily_follow_up\forms.py:425
+#: .\nobinobi_daily_follow_up\forms.py:430
 #: .\nobinobi_daily_follow_up\models.py:54
 msgid "Classroom"
 msgstr "Salle de classe"
 
-#: .\nobinobi_daily_follow_up\forms.py:447
-#: .\nobinobi_daily_follow_up\forms.py:491
+#: .\nobinobi_daily_follow_up\forms.py:452
+#: .\nobinobi_daily_follow_up\forms.py:496
 msgid "Name of children"
 msgstr "Nom des enfants"
 
-#: .\nobinobi_daily_follow_up\forms.py:450
+#: .\nobinobi_daily_follow_up\forms.py:455
 #: .\nobinobi_daily_follow_up\models.py:128
 #: .\nobinobi_daily_follow_up\templates\nobinobi_daily_follow_up\dailyfollowup\summary_week.html:453
 #: .\nobinobi_daily_follow_up\templates\nobinobi_daily_follow_up\presence_detail_list.html:562
 msgid "Activity"
 msgstr "Activité"
 
-#: .\nobinobi_daily_follow_up\forms.py:455
-#: .\nobinobi_daily_follow_up\forms.py:493
+#: .\nobinobi_daily_follow_up\forms.py:460
+#: .\nobinobi_daily_follow_up\forms.py:498
 #: .\nobinobi_daily_follow_up\models.py:76
 #: .\nobinobi_daily_follow_up\models.py:124
 #: .\nobinobi_daily_follow_up\models.py:215
@@ -111,21 +115,21 @@ msgstr "Activité"
 msgid "Comment"
 msgstr "Remarque"
 
-#: .\nobinobi_daily_follow_up\forms.py:494
+#: .\nobinobi_daily_follow_up\forms.py:499
 #: .\nobinobi_daily_follow_up\models.py:75
 msgid "Important"
 msgstr "Important"
 
-#: .\nobinobi_daily_follow_up\forms.py:522
-#: .\nobinobi_daily_follow_up\forms.py:523
-#: .\nobinobi_daily_follow_up\forms.py:525
 #: .\nobinobi_daily_follow_up\forms.py:527
-#: .\nobinobi_daily_follow_up\forms.py:529
+#: .\nobinobi_daily_follow_up\forms.py:528
+#: .\nobinobi_daily_follow_up\forms.py:530
+#: .\nobinobi_daily_follow_up\forms.py:532
+#: .\nobinobi_daily_follow_up\forms.py:534
 #: .\nobinobi_daily_follow_up\models.py:426
 msgid "Give hour"
 msgstr "Donner à"
 
-#: .\nobinobi_daily_follow_up\forms.py:591
+#: .\nobinobi_daily_follow_up\forms.py:596
 msgid "No valid period selected."
 msgstr "Aucune période valide sélectionnée."
 
@@ -1008,228 +1012,228 @@ msgstr "Portable"
 msgid "Professional"
 msgstr "Professionnel"
 
-#: .\nobinobi_daily_follow_up\views.py:88
+#: .\nobinobi_daily_follow_up\views.py:72
 msgid "Choice a classroom"
 msgstr "Choisir une salle de classe"
 
-#: .\nobinobi_daily_follow_up\views.py:100
+#: .\nobinobi_daily_follow_up\views.py:84
 msgid "Success: Presence was created."
 msgstr "Succès : La présence a été créée."
 
-#: .\nobinobi_daily_follow_up\views.py:126
-#: .\nobinobi_daily_follow_up\views.py:159
+#: .\nobinobi_daily_follow_up\views.py:110
+#: .\nobinobi_daily_follow_up\views.py:144
 msgid "Success: Presence was updated."
 msgstr "Succès : La présence a été mise à jour."
 
-#: .\nobinobi_daily_follow_up\views.py:213
+#: .\nobinobi_daily_follow_up\views.py:198
 msgid "Presence of the day"
 msgstr "Présence du jour"
 
-#: .\nobinobi_daily_follow_up\views.py:512
+#: .\nobinobi_daily_follow_up\views.py:497
 msgid "Classroom choice for presence week list"
 msgstr "Choix de salle de classe pour la liste de semaine de présence"
 
-#: .\nobinobi_daily_follow_up\views.py:548
-#: .\nobinobi_daily_follow_up\views.py:937
+#: .\nobinobi_daily_follow_up\views.py:533
+#: .\nobinobi_daily_follow_up\views.py:899
 msgid "Presence week list"
 msgstr "Liste de la semaine de présence"
 
-#: .\nobinobi_daily_follow_up\views.py:675
-#: .\nobinobi_daily_follow_up\views.py:1078
+#: .\nobinobi_daily_follow_up\views.py:660
+#: .\nobinobi_daily_follow_up\views.py:1040
 msgid "The absence {} has a start date after the end date."
 msgstr "L’absence {} a une date de début après la date de fin."
 
-#: .\nobinobi_daily_follow_up\views.py:888
+#: .\nobinobi_daily_follow_up\views.py:850
 msgid "Admin Presence week list"
 msgstr "Liste de la semaine de présence de l'administrateur"
 
-#: .\nobinobi_daily_follow_up\views.py:1309
+#: .\nobinobi_daily_follow_up\views.py:1243
 msgid "Success: Activity was created."
 msgstr "Succès : L'activité a été créée."
 
-#: .\nobinobi_daily_follow_up\views.py:1331
+#: .\nobinobi_daily_follow_up\views.py:1265
 msgid "Success: Activity was deleted."
 msgstr "Succès : L'activité a été supprimée."
 
-#: .\nobinobi_daily_follow_up\views.py:1354
+#: .\nobinobi_daily_follow_up\views.py:1288
 msgid "Success: Activity was updated."
 msgstr "Succès : L'activité a été mise à jour."
 
-#: .\nobinobi_daily_follow_up\views.py:1417
+#: .\nobinobi_daily_follow_up\views.py:1351
 msgid "Success: Nap was created."
 msgstr "Succès: La sieste a été créée."
 
-#: .\nobinobi_daily_follow_up\views.py:1439
+#: .\nobinobi_daily_follow_up\views.py:1373
 msgid "Success: Nap was deleted."
 msgstr "Succès: La sieste a été supprimée."
 
-#: .\nobinobi_daily_follow_up\views.py:1462
+#: .\nobinobi_daily_follow_up\views.py:1396
 msgid "Success: Nap was updated."
 msgstr "Succès: la sieste a été mise à jour."
 
-#: .\nobinobi_daily_follow_up\views.py:1497
+#: .\nobinobi_daily_follow_up\views.py:1431
 msgid "Success: Daily follow-up was updated."
 msgstr "Succès : Le suivi journalier a été mis à jour."
 
-#: .\nobinobi_daily_follow_up\views.py:1522
+#: .\nobinobi_daily_follow_up\views.py:1456
 msgid "Choice a summary for a week Daily follow-up"
 msgstr "Choix d'un résumé pour une semaine Suivi quotidien"
 
-#: .\nobinobi_daily_follow_up\views.py:1540
+#: .\nobinobi_daily_follow_up\views.py:1474
 msgid "Summary for a week Daily follow-up"
 msgstr "Résumé pour une semaine de Suivi Journalier"
 
-#: .\nobinobi_daily_follow_up\views.py:1551
+#: .\nobinobi_daily_follow_up\views.py:1485
 msgid "Success: Lotion was created."
 msgstr "Succès: La crème a été créée."
 
-#: .\nobinobi_daily_follow_up\views.py:1573
+#: .\nobinobi_daily_follow_up\views.py:1507
 msgid "Success: Lotion was deleted."
 msgstr "Succès: La crème a été supprimée."
 
-#: .\nobinobi_daily_follow_up\views.py:1596
+#: .\nobinobi_daily_follow_up\views.py:1530
 msgid "Success: Lotion was updated."
 msgstr "Succès: La crème a été mise à jour."
 
-#: .\nobinobi_daily_follow_up\views.py:1619
+#: .\nobinobi_daily_follow_up\views.py:1553
 msgid "Success: Diaper change was created."
 msgstr "Succès : Le changement de couche a été créé."
 
-#: .\nobinobi_daily_follow_up\views.py:1641
+#: .\nobinobi_daily_follow_up\views.py:1575
 msgid "Success: Diaper change was deleted."
 msgstr "Succès : Le changement de couche a été supprimé."
 
-#: .\nobinobi_daily_follow_up\views.py:1664
+#: .\nobinobi_daily_follow_up\views.py:1598
 msgid "Success: Diaper change was updated."
 msgstr "Succès : Le changement de couche a été mis à jour."
 
-#: .\nobinobi_daily_follow_up\views.py:1706
+#: .\nobinobi_daily_follow_up\views.py:1640
 msgid "Success: Daily Follow-Up to Medication was created."
 msgstr "Succès : Le suivi quotidien des médicaments a été créé."
 
-#: .\nobinobi_daily_follow_up\views.py:1728
+#: .\nobinobi_daily_follow_up\views.py:1662
 msgid "Success: DailyFollowUpToMedication was deleted."
 msgstr "Succès : Le suivi quotidien des médicaments a été suprimée."
 
-#: .\nobinobi_daily_follow_up\views.py:1751
-#: .\nobinobi_daily_follow_up\views.py:1820
+#: .\nobinobi_daily_follow_up\views.py:1685
+#: .\nobinobi_daily_follow_up\views.py:1754
 msgid "Success: Medication was updated."
 msgstr "Succès : Le médicament a été mis à jour."
 
-#: .\nobinobi_daily_follow_up\views.py:1773
+#: .\nobinobi_daily_follow_up\views.py:1707
 msgid "Success: Medication was created."
 msgstr "Succès : Le médicament a été créé."
 
-#: .\nobinobi_daily_follow_up\views.py:1797
+#: .\nobinobi_daily_follow_up\views.py:1731
 msgid "Success: Medication was deleted."
 msgstr "Succès : Le médicament a été supprimé."
 
-#: .\nobinobi_daily_follow_up\views.py:1881
+#: .\nobinobi_daily_follow_up\views.py:1815
 msgid "Success: Reception was updated."
 msgstr "Succès : La présence a été mise à jour."
 
-#: .\nobinobi_daily_follow_up\views.py:1904
+#: .\nobinobi_daily_follow_up\views.py:1838
 msgid "Success: Give Medication was created."
 msgstr "Succès : Donner des médicaments a été créé."
 
-#: .\nobinobi_daily_follow_up\views.py:1931
+#: .\nobinobi_daily_follow_up\views.py:1865
 msgid "Success: Give Medication was deleted."
 msgstr "Succès : Donner des médicaments a été supprimé."
 
-#: .\nobinobi_daily_follow_up\views.py:1954
+#: .\nobinobi_daily_follow_up\views.py:1888
 msgid "Success: Give Medication was updated."
 msgstr "Succès : Donner des médicaments a été mis à jour."
 
-#: .\nobinobi_daily_follow_up\views.py:1977
+#: .\nobinobi_daily_follow_up\views.py:1911
 msgid "Success: Give Medication was delayed."
 msgstr "Succès : Administration des médicaments a été retardé."
 
-#: .\nobinobi_daily_follow_up\views.py:2026
+#: .\nobinobi_daily_follow_up\views.py:1960
 msgid "Success: Meals was created."
 msgstr "Succès : Les repas ont été créés."
 
-#: .\nobinobi_daily_follow_up\views.py:2059
+#: .\nobinobi_daily_follow_up\views.py:1993
 msgid "Success: Meals was updated."
 msgstr "Succès : Les repas ont été mis à jour."
 
-#: .\nobinobi_daily_follow_up\views.py:2124
+#: .\nobinobi_daily_follow_up\views.py:2058
 msgid "Classroom choice for stroll"
 msgstr "Choix de salle de classe pour la promenade"
 
-#: .\nobinobi_daily_follow_up\views.py:2160
+#: .\nobinobi_daily_follow_up\views.py:2094
 msgid "The classroom does not exist."
 msgstr "La salle de classe n'existe pas."
 
-#: .\nobinobi_daily_follow_up\views.py:2163
+#: .\nobinobi_daily_follow_up\views.py:2097
 msgid "There are several classrooms with this ID."
 msgstr "Il y a plusieurs salles de classe avec cette ID."
 
-#: .\nobinobi_daily_follow_up\views.py:2195
+#: .\nobinobi_daily_follow_up\views.py:2129
 msgid "Classroom choice for Group activity"
 msgstr "Choix de la salle de classe pour l'activité de groupe"
 
-#: .\nobinobi_daily_follow_up\views.py:2233
-#: .\nobinobi_daily_follow_up\views.py:2351
+#: .\nobinobi_daily_follow_up\views.py:2167
+#: .\nobinobi_daily_follow_up\views.py:2285
 msgid "Classroom is not found"
 msgstr "La salle de classe n'existe pas."
 
-#: .\nobinobi_daily_follow_up\views.py:2240
+#: .\nobinobi_daily_follow_up\views.py:2174
 msgid "Classroom activities"
 msgstr "Activités en classe"
 
-#: .\nobinobi_daily_follow_up\views.py:2271
+#: .\nobinobi_daily_follow_up\views.py:2205
 msgid "{} does not have a presence today."
 msgstr "{} n'a pas de présence aujourd'hui."
 
-#: .\nobinobi_daily_follow_up\views.py:2275
+#: .\nobinobi_daily_follow_up\views.py:2209
 msgid "There is no daily follow-up today."
 msgstr "Il n'y a pas de suivi journalier aujourd'hui."
 
-#: .\nobinobi_daily_follow_up\views.py:2278
+#: .\nobinobi_daily_follow_up\views.py:2212
 msgid "Activity (s) added"
 msgstr "Activité(s) ajoutée(s)"
 
-#: .\nobinobi_daily_follow_up\views.py:2312
+#: .\nobinobi_daily_follow_up\views.py:2246
 msgid "Classroom choice for Group daily follow-up"
 msgstr "Choix de salle de classe pour le suivi journalier de la classe"
 
-#: .\nobinobi_daily_follow_up\views.py:2358
+#: .\nobinobi_daily_follow_up\views.py:2292
 msgid "Classroom comment & important"
 msgstr "Commentaire & important pour la salle de classe"
 
-#: .\nobinobi_daily_follow_up\views.py:2375
+#: .\nobinobi_daily_follow_up\views.py:2309
 msgid "{} does not have a daily follow-up today."
 msgstr "{} n'a pas de suivi journalier aujourd'hui."
 
-#: .\nobinobi_daily_follow_up\views.py:2390
+#: .\nobinobi_daily_follow_up\views.py:2324
 msgid "Group comment or/and important (s) added"
 msgstr "Commentaire de groupe ou/et important (s) ajouté"
 
-#: .\nobinobi_daily_follow_up\views.py:2477
+#: .\nobinobi_daily_follow_up\views.py:2411
 msgid "Multi Day Medication"
 msgstr "Médicament sur plusieurs jours"
 
-#: .\nobinobi_daily_follow_up\views.py:2484
+#: .\nobinobi_daily_follow_up\views.py:2418
 msgid "The multi-day medication was created."
 msgstr "Le médicament de plusieurs jours a été créé."
 
-#: .\nobinobi_daily_follow_up\views.py:2526
+#: .\nobinobi_daily_follow_up\views.py:2460
 msgid "The give medication for {} was created at {}."
 msgstr "Le médicament pour {} a été créé à {}."
 
-#: .\nobinobi_daily_follow_up\views.py:2543
+#: .\nobinobi_daily_follow_up\views.py:2477
 msgid "Early Troubleshooting list"
 msgstr "Liste des dépannages anticipés"
 
-#: .\nobinobi_daily_follow_up\views.py:2553
+#: .\nobinobi_daily_follow_up\views.py:2487
 msgid "Success: Early Troubleshooting was created."
 msgstr "Le succès : Le dépannage anticipé a été créé."
 
-#: .\nobinobi_daily_follow_up\views.py:2560
+#: .\nobinobi_daily_follow_up\views.py:2494
 msgid "Success: Early Troubleshooting was deleted."
 msgstr "Succès : Le dépannage anticipé a été supprimé."
 
-#: .\nobinobi_daily_follow_up\views.py:2571
+#: .\nobinobi_daily_follow_up\views.py:2505
 msgid "Success: Early Troubleshooting was updated."
 msgstr "Succès : Le dépannage anticipé a été mis à jour."
 

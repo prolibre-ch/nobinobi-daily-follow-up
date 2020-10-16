@@ -1,8 +1,9 @@
-#      Copyright (C) 2020 <Florian Alu - Prolibre - https://prolibre.com
+#    Copyright (C) Prolibre Sarl 2019 <Florian Alu> <alu@prolibre.com>
+#
 #      This program is free software: you can redistribute it and/or modify
 #      it under the terms of the GNU Affero General Public License as
 #      published by the Free Software Foundation, either version 3 of the
-#      License, or (at your option) any later version.
+#      License and any later version.
 #
 #      This program is distributed in the hope that it will be useful,
 #      but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -11,8 +12,6 @@
 #
 #      You should have received a copy of the GNU Affero General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
-
 from bootstrap_datepicker_plus import TimePickerInput, DatePickerInput
 from bootstrap_modal_forms.forms import BSModalModelForm
 from bootstrap_modal_forms.mixins import CreateUpdateAjaxMixin, PopRequestMixin
@@ -162,15 +161,22 @@ class PresenceDepartureForm(CreateUpdateAjaxMixin, forms.ModelForm):
         self.date = kwargs.pop("date", None)
         self.classroom = kwargs.pop("classroom", None)
         self.child_pk = kwargs.pop("child_pk", None)
+        self.obj = kwargs.pop("obj", None)
         if not kwargs["instance"].departure_time:
             kwargs.update(initial={
                 'departure_time': timezone.localtime().strftime("%H:%M")
             })
         super(PresenceDepartureForm, self).__init__(*args, **kwargs)
-        # self.helper = FormHelper()
-        # self.helper.form_method = 'post'
-        # self.helper.form_show_labels = True
-        # self.helper.form_tag = True
+
+    def clean_departure_time(self):
+        data = self.cleaned_data['departure_time']
+        # data = Time()
+        if data <= self.obj.arrival_time:
+            raise ValidationError(_("The departure time is less than the arrival time."), code="invalid")
+
+        # Always return a value to use as the new cleaned data, even if
+        # this method didn't change it.
+        return data
 
 
 class PresenceintermediateDepartureForm(CreateUpdateAjaxMixin, forms.ModelForm):
@@ -210,7 +216,6 @@ class ReceptionForm(BSModalModelForm):
 
 
 class MealDailyFollowUpForm(BSModalModelForm):
-
     class Meta:
         model = MealDailyFollowUp
         fields = ["snack_time", "snack_quality", "snack_meals", "lunch_time", "lunch_quality", "lunch_meals",

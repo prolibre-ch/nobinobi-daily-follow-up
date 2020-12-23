@@ -309,7 +309,8 @@ class PresenceDetailListView(LoginRequiredMixin, ListView):
         missing = []
         # absences = Absence.objects.filter(start_date__lte=now, end_date__gte=now, child__classroom=classroom)
         for child in children_missing:
-            missing.append(child)
+            if child.id in children['expected'] or child.id in children['troubleshooting'] :
+                missing.append(child)
         children['missing'] = missing
         status_children['missing'] = len(missing)
 

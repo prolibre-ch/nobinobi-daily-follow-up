@@ -328,7 +328,8 @@ class MedicationForm(BSModalModelForm):
 
 
 class GiveMedicationForm(BSModalModelForm):
-    staff = forms.ModelChoiceField(label=_("Staff"), queryset=Staff.objects.filter(active=True), required=False)
+    staff = forms.ModelChoiceField(label=_("Staff"), queryset=Staff.objects.filter(status=Staff.STATUS.active),
+                                   required=False)
 
     class Meta:
         model = GiveMedication

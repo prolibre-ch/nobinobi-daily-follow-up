@@ -100,3 +100,7 @@ class GroupedModelChoiceField(Grouped, ModelChoiceField):
 
 class GroupedModelMultiChoiceField(Grouped, ModelMultipleChoiceField):
     choices = property(Grouped._get_choices, ModelMultipleChoiceField._set_choices)
+
+
+def has_view_dailyfollowup(request):
+    return request.user.has_perm('nobinobi_daily_follow_up.view_dailyfollowup')

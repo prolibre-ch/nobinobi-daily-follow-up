@@ -2400,7 +2400,7 @@ class ClassroomJsonView(AutoResponseView):
         qs = super().get_queryset()
         if not self.request.user.is_authenticated:
             raise Http404
-        return qs.filter(allowed_login=self.request.user)
+        return qs.filter(Q(allowed_login=self.request.user) | Q(allowed_group_login__in=self.request.user.groups.all()))
 
 
 class MultiDayMedication(LoginRequiredMixin, FormView):

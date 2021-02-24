@@ -3,8 +3,14 @@
 History
 -------
 
+0.1.1.2 (2021-02-24)
++++++++++++++++++++++++++
+
+* 194da4f - Added support for allowed_group_login in classroom in page presence
+* Update requirements
+
 0.1.1.1 (2021-01-22)
-++++++++++++++++++
++++++++++++++++++++++++++
 
 * Fix bug with new Status in Staff
 * Update requirements

@@ -211,27 +211,16 @@ def create_notification_after_save_givemedication(sender, instance, **kwargs):
 
     is_same_day = True if mydatetime.date() == timezone.localtime().date() else False
     classroom_users = instance.medication.child.classroom.allowed_login.all()
+    classroom_group_users = instance.medication.child.classroom.allowed_group_login.all()
     givemedication_type = ContentType.objects.get_for_model(sender)
     if not instance.given_hour and not instance.staff:
         if mydatetime.date() >= timezone.localtime().date() and mydatetime.isoweekday() not in [6, 7]:
             for user in classroom_users:
-                notif, created = Notification.objects.get_or_create(recipient=user,
-                                                                    actor_content_type=givemedication_type,
-                                                                    actor_object_id=gm.id, level="warning",
-                                                                    defaults={
-                                                                        "public": is_same_day,
-                                                                        "timestamp": mydatetime,
-                                                                        "description": "{} - {}".format(
-                                                                            instance.medication.type_medication,
-                                                                            instance.medication.comment),
-                                                                        "verb": "{} {}".format(_("Give medication"),
-                                                                                               instance.medication.child.full_name),
-                                                                    })
-                if not created:
-                    if is_same_day:
-                        notif.public = True
-                    notif.timestamp = mydatetime
-                    notif.save()
+                create_notification(givemedication_type, gm, instance, is_same_day, mydatetime, user)
+
+            for group in classroom_group_users:
+                for user in group.user_set.all():
+                    create_notification(givemedication_type, gm, instance, is_same_day, mydatetime, user)
 
     elif instance.given_hour and instance.staff:
         try:
@@ -245,6 +234,26 @@ def create_notification_after_save_givemedication(sender, instance, **kwargs):
             for notif in notifs:
                 notif.delete()
     sys.stdout.write(_("Notification for give medication was created.\n"))
+
+
+def create_notification(givemedication_type, gm, instance, is_same_day, mydatetime, user):
+    notif, created = Notification.objects.get_or_create(recipient=user,
+                                                        actor_content_type=givemedication_type,
+                                                        actor_object_id=gm.id, level="warning",
+                                                        defaults={
+                                                            "public": is_same_day,
+                                                            "timestamp": mydatetime,
+                                                            "description": "{} - {}".format(
+                                                                instance.medication.type_medication,
+                                                                instance.medication.comment),
+                                                            "verb": "{} {}".format(_("Give medication"),
+                                                                                   instance.medication.child.full_name),
+                                                        })
+    if not created:
+        if is_same_day:
+            notif.public = True
+        notif.timestamp = mydatetime
+        notif.save()
 
 
 def create_troubleshooting_in_daily_follow_up(sender, instance, **kwargs):

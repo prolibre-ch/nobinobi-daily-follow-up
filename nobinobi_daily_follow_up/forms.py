@@ -18,8 +18,11 @@ from bootstrap_modal_forms.mixins import CreateUpdateAjaxMixin, PopRequestMixin
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Div, Field
 from django import forms
+from django.conf import settings
 from django.contrib import messages
+from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
+from django.db.models import Q
 from django.forms import ModelForm
 from django.forms.renderers import get_default_renderer
 from django.utils import timezone
@@ -426,10 +429,17 @@ class ChoiceClassroomForm(forms.ModelForm):
         # get userid from view
         userid = kwargs.pop("userid")
         super(ChoiceClassroomForm, self).__init__(*args, **kwargs)
+        user = get_user_model()
+        user = user.objects.get(id=userid)
+        group = user.groups.values_list('id', flat=True)
 
         # create field id for form with only the child class of login
-        self.fields['id'] = forms.ModelChoiceField(label=_("Classroom"),
-                                                   queryset=Classroom.objects.filter(allowed_login=userid))
+        self.fields['id'] = forms.ModelChoiceField(
+            label=_("Classroom"),
+            queryset=Classroom.objects.filter(
+                Q(allowed_login=userid) | Q(allowed_group_login__in=group)
+            )
+        )
 
         self.helper = FormHelper()
         self.helper.form_id = 'id-choice-classroom-index-form'

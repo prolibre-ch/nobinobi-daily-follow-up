@@ -438,7 +438,7 @@ class ChoiceClassroomForm(forms.ModelForm):
             label=_("Classroom"),
             queryset=Classroom.objects.filter(
                 Q(allowed_login=userid) | Q(allowed_group_login__in=group)
-            )
+            ).distinct()
         )
 
         self.helper = FormHelper()

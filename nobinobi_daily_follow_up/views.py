@@ -215,8 +215,11 @@ class PresenceDetailListView(LoginRequiredMixin, ListView):
         # ).distinct("first_name", "last_name"))
         # children_troubleshooting =
         children_missing = [abs.child for abs in
-                            Absence.objects.filter(start_date__lte=now.date(), end_date__gte=now.date(),
-                                                   child__classroom=classroom)]
+                            Absence.objects.filter(
+                                start_date__date__lte=now.date(),
+                                end_date__date__gte=now.date(),
+                                child__classroom=classroom)
+                            ]
 
         if classroom.mode == Classroom.OPERATION_MODE.creche:
             children_present = [pres.child for pres in Presence.objects.filter(classroom=classroom, date=now.date())]
@@ -276,7 +279,7 @@ class PresenceDetailListView(LoginRequiredMixin, ListView):
         # expected
         expected = []
         children_missing = [abs.child_id for abs in
-                            Absence.objects.filter(start_date__lte=now, end_date__gte=now, child__classroom=classroom)]
+                            Absence.objects.filter(start_date__date__lte=now, end_date__date__gte=now, child__classroom=classroom)]
         for child in children_in_classroom:
             periods = child.childtoperiod_set.all()
             weekday = now.isoweekday()
@@ -309,7 +312,7 @@ class PresenceDetailListView(LoginRequiredMixin, ListView):
         missing = []
         # absences = Absence.objects.filter(start_date__lte=now, end_date__gte=now, child__classroom=classroom)
         for child in children_missing:
-            if child in children['expected'] or child in children['troubleshooting'] :
+            if child not in children['expected'] or child in children['troubleshooting'] :
                 missing.append(child)
         children['missing'] = missing
         status_children['missing'] = len(missing)

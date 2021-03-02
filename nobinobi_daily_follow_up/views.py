@@ -279,7 +279,8 @@ class PresenceDetailListView(LoginRequiredMixin, ListView):
         # expected
         expected = []
         children_missing = [abs.child_id for abs in
-                            Absence.objects.filter(start_date__date__lte=now, end_date__date__gte=now, child__classroom=classroom)]
+                            Absence.objects.filter(start_date__date__lte=now, end_date__date__gte=now,
+                                                   child__classroom=classroom)]
         for child in children_in_classroom:
             periods = child.childtoperiod_set.all()
             weekday = now.isoweekday()
@@ -312,7 +313,8 @@ class PresenceDetailListView(LoginRequiredMixin, ListView):
         missing = []
         # absences = Absence.objects.filter(start_date__lte=now, end_date__gte=now, child__classroom=classroom)
         for child in children_missing:
-            if child not in children['expected'] or child in children['troubleshooting'] :
+            if child not in children['expected'] or child not in children['troubleshooting'] or child not in children[
+                'present'] or child not in children['leave']:
                 missing.append(child)
         children['missing'] = missing
         status_children['missing'] = len(missing)
@@ -1083,11 +1085,13 @@ class PresenceWeekKinderGartenListView(LoginRequiredMixin, TemplateView):
                                                             period.order][
                                                             'expected'] -= 1
 
-                                                    dict_children[absence.child]["days"][date_absence.isoweekday()]["periods"][
+                                                    dict_children[absence.child]["days"][date_absence.isoweekday()][
+                                                        "periods"][
                                                         period.type][
                                                         period.order][
                                                         "absence"] = absence
-                                                    dict_children[absence.child]["days"][date_absence.isoweekday()]["periods"][
+                                                    dict_children[absence.child]["days"][date_absence.isoweekday()][
+                                                        "periods"][
                                                         period.type][
                                                         period.order]["status"] = "absence"
 
@@ -1153,7 +1157,8 @@ class PresenceWeekKinderGartenListView(LoginRequiredMixin, TemplateView):
                 time_range_arrival_now = DateTimeRange(start_date_presence, timezone.localtime())
                 if time_range_period.is_intersection(time_range_arrival_now):
                     # set information in dict_children
-                    if dict_children[presence.child]["days"][presence.date.isoweekday()]["periods"][period.type][period.order][
+                    if dict_children[presence.child]["days"][presence.date.isoweekday()]["periods"][period.type][
+                        period.order][
                         "status"] == "expected":
                         dict_table[presence.date.isoweekday()]["periods"][period.type][period.order]['expected'] -= 1
                         if presence.intermediate_departure_time and presence.intermediate_departure_time <= timezone.localtime().time() and not presence.intermediate_arrival_time:
@@ -1190,9 +1195,11 @@ class PresenceWeekKinderGartenListView(LoginRequiredMixin, TemplateView):
                 time_range_arrival_now = DateTimeRange(start_date_presence, end_date_presence)
                 if time_range_period.is_intersection(time_range_arrival_now):
                     # set information in dict_children
-                    if dict_children[presence.child]["days"][presence.date.isoweekday()]["periods"][period.type][period.order][
+                    if dict_children[presence.child]["days"][presence.date.isoweekday()]["periods"][period.type][
+                        period.order][
                         "status"] in ["present", "troubleshooting"]:
-                        dict_children[presence.child]["days"][presence.date.isoweekday()]["periods"][period.type][period.order][
+                        dict_children[presence.child]["days"][presence.date.isoweekday()]["periods"][period.type][
+                            period.order][
                             "status"] = "leave"
                         # dict_table[presence.date.isoweekday()]["periods"][period.order]['expected'] -= 1
                         dict_table[presence.date.isoweekday()]["periods"][period.type][period.order]['present'] -= 1
@@ -1231,7 +1238,8 @@ class PresenceWeekKinderGartenListView(LoginRequiredMixin, TemplateView):
                             "birthday": False,
                         }
                     if week_date.isoweekday() in classroom_dayoffs:
-                        dict_children[child.child]["days"][week_date.isoweekday()]["periods"][period_info[1]][period_info[0]][
+                        dict_children[child.child]["days"][week_date.isoweekday()]["periods"][period_info[1]][
+                            period_info[0]][
                             "dayoff"] = True
                     # birthday
                     if child.child.birth_date:
@@ -2403,7 +2411,8 @@ class ClassroomJsonView(AutoResponseView):
         qs = super().get_queryset()
         if not self.request.user.is_authenticated:
             raise Http404
-        return qs.filter(Q(allowed_login=self.request.user) | Q(allowed_group_login__in=self.request.user.groups.all())).distinct()
+        return qs.filter(
+            Q(allowed_login=self.request.user) | Q(allowed_group_login__in=self.request.user.groups.all())).distinct()
 
 
 class MultiDayMedication(LoginRequiredMixin, FormView):

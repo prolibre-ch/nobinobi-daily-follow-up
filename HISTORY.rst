@@ -3,6 +3,12 @@
 History
 -------
 
+0.1.1.5 (2021-03-02)
++++++++++++++++++++++++++
+
+* 890a8ae - Fix an error when a child is absent but is present
+* Update requirements
+
 0.1.1.4 (2021-03-01)
 +++++++++++++++++++++++++
 

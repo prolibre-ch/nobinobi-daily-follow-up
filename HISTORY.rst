@@ -3,6 +3,12 @@
 History
 -------
 
+0.1.1.7 (2021-03-31)
++++++++++++++++++++++++++
+
+* 6637d56 - Add holiday and closure to week presence
+* Update Requirements
+
 0.1.1.6 (2021-03-02)
 +++++++++++++++++++++++++
 

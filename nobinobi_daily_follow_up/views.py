@@ -29,6 +29,7 @@ from django.views.generic import (
 from django_select2.views import AutoResponseView
 from django_weasyprint import WeasyTemplateResponseMixin
 from nobinobi_child.models import Classroom, Child, Absence, Period, ChildToPeriod, ClassroomDayOff
+from nobinobi_core.models import Holiday, OrganisationClosure
 from notifications.models import Notification
 from notifications.settings import get_config
 from notifications.utils import id2slug
@@ -607,6 +608,18 @@ class PresenceWeekListView(LoginRequiredMixin, TemplateView):
                                        dtstart=first_last_day_week[0],
                                        until=first_last_day_week[-1])]
 
+        # Holiday
+        holidays = Holiday.objects.filter(date__in=week_dates).values_list("date", flat=True)
+        # closures
+        closures = OrganisationClosure.objects.filter(from_date__lte=week_dates[-1], end_date__gte=week_dates[0],
+                                                      organisation_id=classroom.organisation.id)
+        closures_dates = []
+        for closure in closures:
+            for r in rrule(DAILY, byweekday=(MO, TU, WE, TH, FR),
+                           dtstart=closure.from_date,
+                           until=closure.end_date):
+                closures_dates.append(r.date())
+
         classroom_dayoffs = ClassroomDayOff.objects.filter(classrooms__id__exact=classroom.id).values_list(
             "weekday",
             flat=True)
@@ -624,7 +637,7 @@ class PresenceWeekListView(LoginRequiredMixin, TemplateView):
 
         for ctp in children:
             PresenceWeekListView.create_dict_struct_for_child(classroom_dayoffs, ctp, dict_children, period_for_day,
-                                                              week_dates)
+                                                              week_dates, holidays, closures_dates)
 
         # get absence
         week_dates_date = [d.date() for d in week_dates]
@@ -732,7 +745,7 @@ class PresenceWeekListView(LoginRequiredMixin, TemplateView):
         for ts in troubleshooting:
             # on creer le dict
             PresenceWeekListView.create_dict_struct_for_child(classroom_dayoffs, ts, dict_children, period_for_day,
-                                                              week_dates)
+                                                              week_dates, holidays, closures_dates)
 
             child_period = ts.dailyfollowup.troubleshooting.periods.all()
             for period in child_period:
@@ -750,7 +763,7 @@ class PresenceWeekListView(LoginRequiredMixin, TemplateView):
         for presence in children_present:
             PresenceWeekListView.create_dict_struct_for_child(classroom_dayoffs, presence, dict_children,
                                                               period_for_day,
-                                                              week_dates)
+                                                              week_dates, holidays, closures_dates)
             child_period = presence.child.periods.filter(weekday=presence.date.isoweekday())
             for period in child_period:
                 # create time range of period
@@ -801,7 +814,8 @@ class PresenceWeekListView(LoginRequiredMixin, TemplateView):
         return dict_children, dict_table, errors
 
     @staticmethod
-    def create_dict_struct_for_child(classroom_dayoffs, child, dict_children, period_for_day, week_dates):
+    def create_dict_struct_for_child(classroom_dayoffs, child, dict_children, period_for_day, week_dates, holidays,
+                                     closures_dates):
         if child.child not in dict_children:
             dict_children[child.child] = {}
 
@@ -823,8 +837,18 @@ class PresenceWeekListView(LoginRequiredMixin, TemplateView):
                             "troubleshooting": None,
                             "absence": None,
                             "dayoff": False,
+                            "holiday": False,
+                            "closure": False,
                             "birthday": False,
                         }
+
+                    # Holidays
+                    if week_date.date() in holidays:
+                        dict_children[child.child][week_date.isoweekday()]["periods"][period_order]["holiday"] = True
+                    # Closures
+                    if week_date.date() in closures_dates:
+                        dict_children[child.child][week_date.isoweekday()]["periods"][period_order]["closure"] = True
+
                     if week_date.isoweekday() in classroom_dayoffs:
                         dict_children[child.child][week_date.isoweekday()]["periods"][period_order]["dayoff"] = True
                     # birthday
@@ -983,6 +1007,17 @@ class PresenceWeekKinderGartenListView(LoginRequiredMixin, TemplateView):
         week_dates = [r for r in rrule(DAILY, byweekday=(MO, TU, WE, TH, FR),
                                        dtstart=first_last_day_week[0],
                                        until=first_last_day_week[-1])]
+        # Holiday
+        holidays = Holiday.objects.filter(date__in=week_dates).values_list("date", flat=True)
+        # closures
+        closures = OrganisationClosure.objects.filter(from_date__lte=week_dates[-1], end_date__gte=week_dates[0],
+                                                      organisation_id=classroom.organisation.id)
+        closures_dates = []
+        for closure in closures:
+            for r in rrule(DAILY, byweekday=(MO, TU, WE, TH, FR),
+                           dtstart=closure.from_date,
+                           until=closure.end_date):
+                closures_dates.append(r.date())
 
         classroom_dayoffs = ClassroomDayOff.objects.filter(classrooms__id__exact=classroom.id).values_list(
             "weekday",
@@ -1002,7 +1037,7 @@ class PresenceWeekKinderGartenListView(LoginRequiredMixin, TemplateView):
         for ctp in children:
             PresenceWeekKinderGartenListView.create_dict_struct_for_child(classroom_dayoffs, ctp, dict_children,
                                                                           period_for_day,
-                                                                          week_dates)
+                                                                          week_dates, holidays, closures_dates)
         # get absence
         week_dates_date = [d.date() for d in week_dates]
 
@@ -1129,7 +1164,7 @@ class PresenceWeekKinderGartenListView(LoginRequiredMixin, TemplateView):
             # on creer le dict
             PresenceWeekKinderGartenListView.create_dict_struct_for_child(classroom_dayoffs, ts, dict_children,
                                                                           period_for_day,
-                                                                          week_dates)
+                                                                          week_dates, holidays, closures_dates)
             child_period = ts.dailyfollowup.troubleshooting.periods.all()
             for period in child_period:
                 # create time range of period
@@ -1148,7 +1183,7 @@ class PresenceWeekKinderGartenListView(LoginRequiredMixin, TemplateView):
         for presence in children_present:
             PresenceWeekKinderGartenListView.create_dict_struct_for_child(classroom_dayoffs, presence,
                                                                           dict_children, period_for_day,
-                                                                          week_dates)
+                                                                          week_dates, holidays, closures_dates)
             child_period = presence.child.periods.filter(weekday=presence.date.isoweekday())
             for period in child_period:
                 # create time range of period
@@ -1209,7 +1244,8 @@ class PresenceWeekKinderGartenListView(LoginRequiredMixin, TemplateView):
         return dict_children, dict_table, errors
 
     @staticmethod
-    def create_dict_struct_for_child(classroom_dayoffs, child, dict_children, period_for_day, week_dates):
+    def create_dict_struct_for_child(classroom_dayoffs, child, dict_children, period_for_day, week_dates, holidays,
+                                     closures_dates):
         if child.child not in dict_children:
             dict_children[child.child] = {"days": {}, "type": {"morning": None, "afternoon": None}}
 
@@ -1237,8 +1273,22 @@ class PresenceWeekKinderGartenListView(LoginRequiredMixin, TemplateView):
                             "troubleshooting": None,
                             "absence": None,
                             "dayoff": False,
+                            "holiday": False,
+                            "closure": False,
                             "birthday": False,
                         }
+
+                    # Holidays
+                    if week_date.date() in holidays:
+                        dict_children[child.child][week_date.isoweekday()]["periods"][period_info[1]][
+                            period_info[0]][
+                            "holiday"] = True
+                    # Closures
+                    if week_date.date() in closures_dates:
+                        dict_children[child.child][week_date.isoweekday()]["periods"][period_info[1]][
+                            period_info[0]][
+                            "closure"] = True
+
                     if week_date.isoweekday() in classroom_dayoffs:
                         dict_children[child.child]["days"][week_date.isoweekday()]["periods"][period_info[1]][
                             period_info[0]][

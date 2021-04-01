@@ -597,8 +597,7 @@ class PresenceWeekListView(LoginRequiredMixin, TemplateView):
                             dict[week_date.date().isoweekday()]["periods"][period.order]['dayoff'] = True
         return dict
 
-    @staticmethod
-    def create_dict_table_child(classroom, date_received, dict_table):
+    def create_dict_table_child(self, classroom, date_received, dict_table):
         dict_children = {}
         errors = []
         # get first and last day from week
@@ -611,14 +610,21 @@ class PresenceWeekListView(LoginRequiredMixin, TemplateView):
         # Holiday
         holidays = Holiday.objects.filter(date__in=week_dates).values_list("date", flat=True)
         # closures
-        closures = OrganisationClosure.objects.filter(from_date__lte=week_dates[-1], end_date__gte=week_dates[0],
-                                                      organisation_id=classroom.organisation.id)
         closures_dates = []
-        for closure in closures:
-            for r in rrule(DAILY, byweekday=(MO, TU, WE, TH, FR),
-                           dtstart=closure.from_date,
-                           until=closure.end_date):
-                closures_dates.append(r.date())
+        try:
+            closures = OrganisationClosure.objects.filter(from_date__lte=week_dates[-1],
+                                                          end_date__gte=week_dates[0],
+                                                          organisation_id=classroom.organisation.id)
+        except AttributeError:
+            messages.warning(self.request, _(
+                "You have not entered an organization for this classroom, "
+                "institutional closures will not be taken into account."))
+        else:
+            for closure in closures:
+                for r in rrule(DAILY, byweekday=(MO, TU, WE, TH, FR),
+                               dtstart=closure.from_date,
+                               until=closure.end_date):
+                    closures_dates.append(r.date())
 
         classroom_dayoffs = ClassroomDayOff.objects.filter(classrooms__id__exact=classroom.id).values_list(
             "weekday",
@@ -997,8 +1003,7 @@ class PresenceWeekKinderGartenListView(LoginRequiredMixin, TemplateView):
 
         return dict
 
-    @staticmethod
-    def create_dict_table_child(classroom, date_received, dict_table):
+    def create_dict_table_child(self, classroom, date_received, dict_table):
         dict_children = {}
         errors = []
         # get first and last day from week
@@ -1010,14 +1015,21 @@ class PresenceWeekKinderGartenListView(LoginRequiredMixin, TemplateView):
         # Holiday
         holidays = Holiday.objects.filter(date__in=week_dates).values_list("date", flat=True)
         # closures
-        closures = OrganisationClosure.objects.filter(from_date__lte=week_dates[-1], end_date__gte=week_dates[0],
-                                                      organisation_id=classroom.organisation.id)
         closures_dates = []
-        for closure in closures:
-            for r in rrule(DAILY, byweekday=(MO, TU, WE, TH, FR),
-                           dtstart=closure.from_date,
-                           until=closure.end_date):
-                closures_dates.append(r.date())
+        try:
+            closures = OrganisationClosure.objects.filter(from_date__lte=week_dates[-1],
+                                                          end_date__gte=week_dates[0],
+                                                          organisation_id=classroom.organisation.id)
+        except AttributeError:
+            messages.warning(self.request, _(
+                "You have not entered an organization for this classroom, "
+                "institutional closures will not be taken into account."))
+        else:
+            for closure in closures:
+                for r in rrule(DAILY, byweekday=(MO, TU, WE, TH, FR),
+                               dtstart=closure.from_date,
+                               until=closure.end_date):
+                    closures_dates.append(r.date())
 
         classroom_dayoffs = ClassroomDayOff.objects.filter(classrooms__id__exact=classroom.id).values_list(
             "weekday",

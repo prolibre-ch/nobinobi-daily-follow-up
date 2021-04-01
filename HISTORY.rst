@@ -3,6 +3,13 @@
 History
 -------
 
+0.1.1.8 (2021-04-01)
++++++++++++++++++++++++++
+
+* f564676 - Update traduction FR
+* e667ba8 - Warn if organisation is not set in classroom in presence week for closures
+* 1c499f6 - Move messages display in presence week
+
 0.1.1.7 (2021-03-31)
 +++++++++++++++++++++++++
 

@@ -20,6 +20,6 @@ django-simple-menu==1.2.1
 psycopg2-binary==2.8.6
 weasyprint==52.4
 # nobinobi requirements
-nobinobi-core==0.1.3
+nobinobi-core==0.1.4
 nobinobi-staff==0.1.5
 nobinobi-child==0.1.3.5

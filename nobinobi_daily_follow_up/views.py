@@ -540,12 +540,11 @@ class PresenceWeekListView(LoginRequiredMixin, TemplateView):
         context['month_after'] = arrow.get(week_dates[-1]).shift(months=+1)
         context['classroom'] = get_object_or_404(Classroom, id=kwargs.get("classroom_id"))
         context['title'] = _("Presence week list")
-        context['dict_table_child'], context['dict_table'], errors = self.create_dict_table_child(context['classroom'],
-                                                                                                  context['now'],
-                                                                                                  self.create_dict_table(
-                                                                                                      context['now'],
-                                                                                                      context[
-                                                                                                          'classroom']))
+        context['dict_table_child'], context['dict_table'], errors = self.create_dict_table_child(
+            request=self.request,
+            classroom=context['classroom'],
+            date_received=context['now'],
+            dict_table=self.create_dict_table(context['now'], context['classroom']))
         for error in errors:
             messages.error(self.request, error)
         return context
@@ -597,7 +596,8 @@ class PresenceWeekListView(LoginRequiredMixin, TemplateView):
                             dict[week_date.date().isoweekday()]["periods"][period.order]['dayoff'] = True
         return dict
 
-    def create_dict_table_child(self, classroom, date_received, dict_table):
+    @staticmethod
+    def create_dict_table_child(request, classroom, date_received, dict_table):
         dict_children = {}
         errors = []
         # get first and last day from week
@@ -616,7 +616,7 @@ class PresenceWeekListView(LoginRequiredMixin, TemplateView):
                                                           end_date__gte=week_dates[0],
                                                           organisation_id=classroom.organisation.id)
         except AttributeError:
-            messages.warning(self.request, _(
+            messages.warning(request, _(
                 "You have not entered an organization for this classroom, "
                 "institutional closures will not be taken into account."))
         else:
@@ -890,17 +890,19 @@ class AdminPresenceWeekListView(LoginRequiredMixin, TemplateView):
         for classroom in context['classrooms']:
             if classroom.mode == Classroom.OPERATION_MODE.creche:
                 dict_table_child, dict_table, errors_creche = PresenceWeekListView.create_dict_table_child(
-                    classroom,
-                    context['now'],
-                    PresenceWeekListView.create_dict_table(context['now'], classroom))
+                    request=self.request,
+                    classroom=classroom,
+                    date_received=context['now'],
+                    dict_table=PresenceWeekListView.create_dict_table(context['now'], classroom))
                 for error in errors_creche:
                     messages.error(self.request, error)
 
             elif classroom.mode == Classroom.OPERATION_MODE.kindergarten:
                 dict_table_child, dict_table, errors_kindergarten = PresenceWeekKinderGartenListView.create_dict_table_child(
-                    classroom,
-                    context['now'],
-                    PresenceWeekKinderGartenListView.create_dict_table(context['now'], classroom))
+                    request=self.request,
+                    classroom=classroom,
+                    date_received=context['now'],
+                    dict_table=PresenceWeekKinderGartenListView.create_dict_table(context['now'], classroom))
                 for error in errors_kindergarten:
                     messages.error(self.request, error)
 
@@ -935,12 +937,11 @@ class PresenceWeekKinderGartenListView(LoginRequiredMixin, TemplateView):
         context['month_after'] = arrow.get(week_dates[-1]).shift(months=+1)
         context['classroom'] = get_object_or_404(Classroom, id=kwargs.get("classroom_id"))
         context['title'] = _("Presence week list")
-        context['dict_table_child'], context['dict_table'], errors = self.create_dict_table_child(context['classroom'],
-                                                                                                  context['now'],
-                                                                                                  self.create_dict_table(
-                                                                                                      context['now'],
-                                                                                                      context[
-                                                                                                          'classroom']))
+        context['dict_table_child'], context['dict_table'], errors = self.create_dict_table_child(
+            request=self.request,
+            classroom=context['classroom'],
+            date_received=context['now'],
+            dict_table=self.create_dict_table(context['now'], context['classroom']))
         for error in errors:
             messages.error(self.request, error)
 
@@ -1003,7 +1004,8 @@ class PresenceWeekKinderGartenListView(LoginRequiredMixin, TemplateView):
 
         return dict
 
-    def create_dict_table_child(self, classroom, date_received, dict_table):
+    @staticmethod
+    def create_dict_table_child(request, classroom, date_received, dict_table):
         dict_children = {}
         errors = []
         # get first and last day from week
@@ -1021,7 +1023,7 @@ class PresenceWeekKinderGartenListView(LoginRequiredMixin, TemplateView):
                                                           end_date__gte=week_dates[0],
                                                           organisation_id=classroom.organisation.id)
         except AttributeError:
-            messages.warning(self.request, _(
+            messages.warning(request, _(
                 "You have not entered an organization for this classroom, "
                 "institutional closures will not be taken into account."))
         else:

@@ -3,6 +3,13 @@
 History
 -------
 
+0.1.1.11 (2021-05-28)
++++++++++++++++++++++++++
+
+* 0b49550 - fix test app notification
+* 68bb412 - Fix bug when create presence for troubleshooting
+* Update requirements for security
+
 0.1.1.10 (2021-04-15)
 +++++++++++++++++++++++++
 

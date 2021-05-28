@@ -67,6 +67,10 @@ class Presence(TimeStampedModel):
         return _("Presence: {} - {} - {}").format(self.child.full_name, self.date,
                                                   self.classroom.name if self.classroom else "-")
 
+    def save(self, *args, **kwargs):
+        super(Presence, self).save(*args, **kwargs)
+        self.dailyfollowup.save()
+
 
 class DailyFollowUp(AutoOneToOneModel(Presence, attr="presence"), TimeStampedModel):
     """

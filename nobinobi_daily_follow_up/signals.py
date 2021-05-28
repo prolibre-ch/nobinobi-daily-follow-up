@@ -263,24 +263,41 @@ def create_troubleshooting_in_daily_follow_up(sender, instance, **kwargs):
     # get general periods for this weekday and this classroom
     periods = list(Period.objects.filter(weekday=today.isoweekday()).order_by("order"))
     # get timerange now
-    time_range = DateTimeRange(datetime.datetime.combine(today, instance.presence.arrival_time),
-                               datetime.datetime.combine(today, instance.presence.arrival_time))
+    if not instance.presence.departure_time:
+        time_range = DateTimeRange(datetime.datetime.combine(today, instance.presence.arrival_time),
+                                   datetime.datetime.combine(today, instance.presence.arrival_time))
+    else:
+        time_range = DateTimeRange(datetime.datetime.combine(today, instance.presence.arrival_time),
+                                   datetime.datetime.combine(today, instance.presence.departure_time))
+    periods_in_range = []
     # get period interaction from arrival_time
     for period in periods:
         period_range = DateTimeRange(datetime.datetime.combine(today, period.start_time),
                                      datetime.datetime.combine(today, period.end_time))
-        if time_range in period_range:
+
+        if time_range.is_intersection(period_range):
             try:
                 ChildToPeriod.objects.get(child=instance.presence.child, child__status=Child.STATUS.in_progress,
                                           start_date__lte=today, end_date__gte=today,
                                           period=period, child__classroom=classroom)
             except ChildToPeriod.DoesNotExist:
-                ts, created = Troubleshooting.objects.get_or_create(daily_follow_up=instance)
-                if created:
-                    ts.periods.add(period)
+                periods_in_range.append(period.id)
 
-        # sinon trouble
-        # on check les early troubleshooting
+    if periods_in_range:
+        ts, created = Troubleshooting.objects.get_or_create(daily_follow_up=instance)
+        ts.periods.set(periods_in_range)
+    else:
+        try:
+            ts = Troubleshooting.objects.get(daily_follow_up=instance)
+        except Troubleshooting.DoesNotExist:
+            pass
+        else:
+            ts.delete()
+
+
+    # sinon trouble
+    # on check les early troubleshooting
+
     try:
         early_troubleshooting = EarlyTroubleshooting.objects.get(date=today, child=instance.presence.child)
     except EarlyTroubleshooting.DoesNotExist:

@@ -3,6 +3,12 @@
 History
 -------
 
+0.1.1.12 (2021-06-18)
++++++++++++++++++++++++++
+
+* 3471001 - Fix table responsive in Presence Week
+* Update requirements for security
+
 0.1.1.11 (2021-05-28)
 +++++++++++++++++++++++++
 

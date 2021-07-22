@@ -1294,12 +1294,12 @@ class PresenceWeekKinderGartenListView(LoginRequiredMixin, TemplateView):
 
                     # Holidays
                     if week_date.date() in holidays:
-                        dict_children[child.child][week_date.isoweekday()]["periods"][period_info[1]][
+                        dict_children[child.child]['days'][week_date.isoweekday()]["periods"][period_info[1]][
                             period_info[0]][
                             "holiday"] = True
                     # Closures
                     if week_date.date() in closures_dates:
-                        dict_children[child.child][week_date.isoweekday()]["periods"][period_info[1]][
+                        dict_children[child.child]['days'][week_date.isoweekday()]["periods"][period_info[1]][
                             period_info[0]][
                             "closure"] = True
 

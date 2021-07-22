@@ -3,6 +3,17 @@
 History
 -------
 
+0.1.1.13 (2021-07-22)
++++++++++++++++++++++++++
+
+* 9c4fb3e - Fix for new django
+* 347e179 - Fix bug with kindergarten view presence week
+* 73896a7 - Update tox from 3.23.1 to 3.24.0
+* 77a0cc8 - Update invoke from 1.5.0 to 1.6.0
+* 46cc5f9 - Update psycopg2-binary from 2.8.6 to 2.9.1
+* 0e51f63 - Update django from 3.2.4 to 3.2.5
+* 3d1652e - Update arrow from 1.1.0 to 1.1.1
+
 0.1.1.12 (2021-06-18)
 +++++++++++++++++++++++++
 

@@ -19,7 +19,7 @@ drf-writable-nested==0.6.3
 django-simple-menu==1.2.1
 psycopg2-binary==2.9.1
 weasyprint==53.3
-cffi
+cffi==1.14.6
 argon2_cffi
 # nobinobi requirements
 nobinobi-core==0.1.4.2

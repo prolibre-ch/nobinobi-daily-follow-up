@@ -85,7 +85,7 @@
                     {% for child in child_in_classroom %}
                         <div class="col-md-2 mt-2">
                             <div
-                                    class="img-container p-1
+                                class="img-container p-1
 {% if child.id in children.troubleshooting %}
 border-info
 {% elif child.id in children.present %}
@@ -103,8 +103,8 @@ border
                                 <div class="img-text">
                                     <h5>{{ child.usual_name }}{% if display_age_group_in_presence %}
                                         <small>({{ child.age_group.name.0 }})</small>{% endif %} <a
-                                            href="{% url 'nobinobi_child:Child_detail' pk=child.pk %}"><i
-                                            class="far fa-eye"></i></a></h5>
+                                        href="{% url 'nobinobi_child:Child_detail' pk=child.pk %}"><i
+                                        class="far fa-eye"></i></a></h5>
                                 </div>
                                 {% spaceless %}
 
@@ -133,7 +133,9 @@ border
 
 
 
-                                                    {% if child.gender == "boy" %}{% static "img/avatar/default-avatar-boy.png" %}{% elif child.gender == "girl" %}{% static "img/avatar/default-avatar-girl.png" %}{% else %}{% static "img/avatar/default-avatar-other.png" %}{% endif %}"
+
+
+                                                {% if child.gender == "boy" %}{% static "img/avatar/default-avatar-boy.png" %}{% elif child.gender == "girl" %}{% static "img/avatar/default-avatar-girl.png" %}{% else %}{% static "img/avatar/default-avatar-other.png" %}{% endif %}"
                                                  class="img-fluid img-rounded"
                                                  alt="{{ child.full_name }}">
                                         {% endif %}
@@ -206,7 +208,10 @@ border
 
 {% block extrajs %}
     {{ block.super }}
+    <script src="{% static 'js/moment-with-locales.min.js' %}"></script>
     <script src="{% static 'vendor/DataTables/datatables.min.js' %}"></script>
+    <script src="{% static 'js/jquery.bootstrap.modal.forms.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/vendor/bootstrap-datetimepicker.min.js' %}"></script>
     <script>
         function docReady(fn) {
             // see if DOM is already available
@@ -553,37 +558,37 @@ border
                         searchable: false,
                         render:
 
-                                function (row, index, datatable) {
-                                    let text = "<p>";
-                                    {#if (row.snack_time) {#}
-                                    {#  text += "{% trans 'Snack time' %}: " + row.snack_time + "<br/>";#}
-                                    if (row.activity_set && row.activity_set.length > 0) {
-                                        for (let i = 0; i < row.activity_set.length; i++) {
-                                            text += "{% trans 'Activity' %} " + (i + 1) + ": " + row.activity_set[i].type_activity.name + "(" + row.activity_set[i].type_activity.group.name + ")<br/>";
-                                            if (row.activity_set[i].comment) {
-                                                text += "{% trans 'Comment' %} " + (i + 1) + ": " + row.activity_set[i].comment + "<br/>";
-                                            }
-                                            text += '<div class="btn-group-xs btn-xs">';
-                                            {% if perms.nobinobi_daily_follow_up.change_activity %}
-                                                text += '<button data-id="{% url "nobinobi_daily_follow_up:Activity_update" pk=123 %}" class="activity-update btn btn-secondary btn-group-xs btn-xs "><i class="fa fa-edit"></i></button>'.replace(123, row.activity_set[i].pk);
-                                            {% endif %}
-                                            {% if perms.nobinobi_daily_follow_up.delete_activity %}
-                                                text += '<button data-id="{% url "nobinobi_daily_follow_up:Activity_delete" pk=123 %}" class="activity-delete btn btn-danger"><i class="fa fa-times"></i></button>'.replace(123, row.activity_set[i].pk);
-                                            {% endif %}
-                                            text += '</div>';
+                            function (row, index, datatable) {
+                                let text = "<p>";
+                                {#if (row.snack_time) {#}
+                                {#  text += "{% trans 'Snack time' %}: " + row.snack_time + "<br/>";#}
+                                if (row.activity_set && row.activity_set.length > 0) {
+                                    for (let i = 0; i < row.activity_set.length; i++) {
+                                        text += "{% trans 'Activity' %} " + (i + 1) + ": " + row.activity_set[i].type_activity.name + "(" + row.activity_set[i].type_activity.group.name + ")<br/>";
+                                        if (row.activity_set[i].comment) {
+                                            text += "{% trans 'Comment' %} " + (i + 1) + ": " + row.activity_set[i].comment + "<br/>";
                                         }
+                                        text += '<div class="btn-group-xs btn-xs">';
+                                        {% if perms.nobinobi_daily_follow_up.change_activity %}
+                                            text += '<button data-id="{% url "nobinobi_daily_follow_up:Activity_update" pk=123 %}" class="activity-update btn btn-secondary btn-group-xs btn-xs "><i class="fa fa-edit"></i></button>'.replace(123, row.activity_set[i].pk);
+                                        {% endif %}
+                                        {% if perms.nobinobi_daily_follow_up.delete_activity %}
+                                            text += '<button data-id="{% url "nobinobi_daily_follow_up:Activity_delete" pk=123 %}" class="activity-delete btn btn-danger"><i class="fa fa-times"></i></button>'.replace(123, row.activity_set[i].pk);
+                                        {% endif %}
+                                        text += '</div>';
                                     }
-                                    text += "</p>";
-                                    {# CRUD #}
-                                    text += '<div class="btn-group-xs btn-xs">';
-                                    {% if perms.nobinobi_daily_follow_up.add_activity %}
-                                        text += '<button data-id="{% url "nobinobi_daily_follow_up:Activity_create" daily_follow_up=123 %}" class="activity-create btn btn-primary"><i class="fa fa-plus"></i></button>'.replace(123, row.pk);
-                                    {% endif %}                {#              {% if perms.nobinobi_child.delete_absence %}#}
-                                    {#                text += '<button data-id="{% url "nobinobi_child:Absence_delete" pk=123 %}" class="absence-delete btn btn-danger"><i class="fa fa-times"></i></button>'.replace(123, row.id);#}
-                                    {#              {% endif %}#}
-                                    text += '</div>';
-                                    return text;
                                 }
+                                text += "</p>";
+                                {# CRUD #}
+                                text += '<div class="btn-group-xs btn-xs">';
+                                {% if perms.nobinobi_daily_follow_up.add_activity %}
+                                    text += '<button data-id="{% url "nobinobi_daily_follow_up:Activity_create" daily_follow_up=123 %}" class="activity-create btn btn-primary"><i class="fa fa-plus"></i></button>'.replace(123, row.pk);
+                                {% endif %}                {#              {% if perms.nobinobi_child.delete_absence %}#}
+                                {#                text += '<button data-id="{% url "nobinobi_child:Absence_delete" pk=123 %}" class="absence-delete btn btn-danger"><i class="fa fa-times"></i></button>'.replace(123, row.id);#}
+                                {#              {% endif %}#}
+                                text += '</div>';
+                                return text;
+                            }
                     }
                     ,
                     {# MEDICATIONS #}
@@ -662,23 +667,23 @@ border
                 ],
                 dom: 'Bfrtip',
                 buttons:
-                        [
-                            {#'copyHtml5',#}
-                            'print',
-                            'csvHtml5',
-                            'pdfHtml5',
-                            {
-                                text: 'Reset',
+                    [
+                        {#'copyHtml5',#}
+                        'print',
+                        'csvHtml5',
+                        'pdfHtml5',
+                        {
+                            text: 'Reset',
 
-                                action: function (e, dt, node, config) {
-                                    // Redraw table (and reset main search filter)
-                                    dt.columns().search('');
-                                    dt.draw();
-                                },
+                            action: function (e, dt, node, config) {
+                                // Redraw table (and reset main search filter)
+                                dt.columns().search('');
+                                dt.draw();
                             },
-                        ],
+                        },
+                    ],
                 responsive:
-                        true,
+                    true,
                 {#"searchCols": [#}
                 {#  {"search": 'in_progress'},#}
                 {#],#}

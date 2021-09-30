@@ -3,6 +3,24 @@
 History
 -------
 
+0.1.1.14 (2021-09-30)
++++++++++++++++++++++++++
+
+* bba7486 - Fix import script in presence day
+* 40be2ac - Update tox from 3.24.0 to 3.24.4
+* 72a0b0b - Update django-debug-toolbar from 3.2.1 to 3.2.2
+* 9800628 - Update wheel from 0.36.2 to 0.37.0
+* f361c97 - Update twine from 3.4.1 to 3.4.2
+* 4bd42f6 - Update nobinobi-core from 0.1.4.2 to 0.1.4.6
+* 62f6192 - Pin argon2_cffi to latest version 21.1.0
+* fdf18e6 - Pin cffi to latest version 1.14.6
+* 96c8ad7 - Update weasyprint from 52.5 to 53.3
+* f28b7ce - Update django from 3.2.5 to 3.2.7
+* 7800b40 - Update django-weasyprint from 1.1.0 to 1.1.0.post1
+* 602ab62 - Update django-select2 from 7.7.1 to 7.7.2
+* d22ceda - Update django-crispy-forms from 1.12.0 to 1.13.0
+* 1a849d0 - Update django-appconf from 1.0.4 to 1.0.5
+
 0.1.1.13 (2021-07-22)
 +++++++++++++++++++++++++
 

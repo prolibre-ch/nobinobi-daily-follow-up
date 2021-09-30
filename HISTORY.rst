@@ -3,6 +3,11 @@
 History
 -------
 
+0.1.1.15 (2021-09-30)
++++++++++++++++++++++++++
+
+* ecb9b1c - Fix bug in page summary with modal and datatable
+
 0.1.1.14 (2021-09-30)
 +++++++++++++++++++++++++
 

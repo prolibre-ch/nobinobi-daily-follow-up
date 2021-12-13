@@ -20,7 +20,7 @@ django-simple-menu==1.2.1
 psycopg2-binary==2.9.2
 weasyprint==53.4
 cffi==1.15.0
-argon2_cffi==21.1.0
+argon2_cffi==21.3.0
 # nobinobi requirements
 nobinobi-core==0.1.4.6
 nobinobi-staff==0.1.5

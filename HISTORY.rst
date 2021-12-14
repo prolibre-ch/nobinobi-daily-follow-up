@@ -3,6 +3,12 @@
 History
 -------
 
+0.1.1.16 (2021-12-24)
++++++++++++++++++++++++++
+
+* 4188658 - update nobinobi module
+* 0810718 - fix error ith new boostrap datimepicker
+
 0.1.1.15 (2021-09-30)
 +++++++++++++++++++++++++
 

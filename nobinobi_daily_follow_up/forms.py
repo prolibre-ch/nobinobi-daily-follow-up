@@ -12,7 +12,7 @@
 #
 #      You should have received a copy of the GNU Affero General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
-from bootstrap_datepicker_plus import TimePickerInput, DatePickerInput
+from bootstrap_datepicker_plus.widgets import TimePickerInput, DatePickerInput
 from bootstrap_modal_forms.forms import BSModalModelForm
 from bootstrap_modal_forms.mixins import CreateUpdateAjaxMixin, PopRequestMixin
 from crispy_forms.helper import FormHelper

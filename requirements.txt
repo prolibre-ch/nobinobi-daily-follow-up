@@ -23,5 +23,5 @@ cffi==1.15.0
 argon2_cffi==21.3.0
 # nobinobi requirements
 nobinobi-core==0.1.4.6
-nobinobi-staff==0.1.5
-nobinobi-child==0.1.3.7
+nobinobi-staff==0.1.6.6
+nobinobi-child==0.1.3.8

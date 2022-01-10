@@ -14,7 +14,7 @@ django-weasyprint==2.1.0
 django-widget-tweaks==1.4.11
 django==4.0.1
 djangorestframework-datatables==0.7.0
-djangorestframework==3.13.0
+djangorestframework==3.13.1
 drf-writable-nested==0.6.3
 django-simple-menu==1.2.1
 psycopg2-binary==2.9.2

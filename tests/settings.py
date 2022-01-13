@@ -40,15 +40,16 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'django_select2',
     'bootstrap_datepicker_plus',
+    'notifications',
     'nobinobi_core',
-    'nobinobi_staff',
-    'nobinobi_child',
-    'nobinobi_daily_follow_up',
-
+    'nobinobi_staff', 'nobinobi_daily_follow_up.apps.NobinobiDailyFollowUpConfig',
+    'nobinobi_child.apps.NobinobiChildConfig',
 
     # if your app has other dependencies that need to be added to the site
     # they should be added here
 ]
+# Application definition
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

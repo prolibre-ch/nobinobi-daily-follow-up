@@ -11,15 +11,15 @@
 
 {% block notification_menu %}
     <!-- modal instanstiation -->
-    {% if dfu_live_unread %}
+    {% dfu_live_unread as dfu_live %}
+    {% if dfu_live > 0 %}
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 
         <!-- Example single danger button -->
         <div class="btn-group">
             <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
-                {% trans "Medication Alerts" %} <span
-                class="badge badge-pill badge-light">{% dfu_live_notify_badge %}</span>
+                    aria-expanded="false"><span
+                class="badge badge-pill badge-light">{% dfu_live_notify_badge %}</span> {% trans "Medication Alerts" %}
                 <span class="sr-only">{% trans "unread messages" %}</span>
             </button>
             {% live_notify_list_bootstrap list_class="dropdown-menu live_notify_list" %}

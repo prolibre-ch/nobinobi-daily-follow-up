@@ -39,9 +39,19 @@ def dfu_live_notify_badge(context, badge_class='live_notify_badge'):
         return ''
 
     html = "<span class='{badge_class}'>{unread}</span>".format(
-        badge_class=badge_class, unread=user.notifications.filter(public=True, timestamp__lte=timezone.localtime()).count()
+        badge_class=badge_class,
+        unread=user.notifications.filter(public=True, timestamp__lte=timezone.localtime()).count()
     )
     return format_html(html)
+
+
+@register.simple_tag(takes_context=True)
+def dfu_live_unread(context, badge_class='dfu_live_unread'):
+    user = user_context(context)
+    if not user:
+        return ''
+
+    return user.notifications.filter(public=True, timestamp__lte=timezone.localtime()).count()
 
 
 # Requires vanilla-js framework - http://vanilla-js.com/

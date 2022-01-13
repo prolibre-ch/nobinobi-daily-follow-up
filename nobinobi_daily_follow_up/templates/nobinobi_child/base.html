@@ -11,26 +11,20 @@
 
 {% block notification_menu %}
     <!-- modal instanstiation -->
+    {% if dfu_live_unread %}
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
-
-    <!-- Example single danger button -->
-    <div class="btn-group">
-        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                aria-expanded="false">
-            {% trans "Medication Alerts" %} <span
-            class="badge badge-pill badge-light">{% dfu_live_notify_badge %}</span>
-            <span class="sr-only">{% trans "unread messages" %}</span>
-        </button>
-        {% live_notify_list_bootstrap list_class="dropdown-menu live_notify_list" %}
-        {#    <div class="dropdown-menu">#}
-        {#      <a class="dropdown-item" href="#">Action</a>#}
-        {#      <a class="dropdown-item" href="#">Another action</a>#}
-        {#      <a class="dropdown-item" href="#">Something else here</a>#}
-        {#      <div class="dropdown-divider"></div>#}
-        {#      <a class="dropdown-item" href="#">Separated link</a>#}
-        {#    </div>#}
-    </div>
+        <!-- Example single danger button -->
+        <div class="btn-group">
+            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                {% trans "Medication Alerts" %} <span
+                class="badge badge-pill badge-light">{% dfu_live_notify_badge %}</span>
+                <span class="sr-only">{% trans "unread messages" %}</span>
+            </button>
+            {% live_notify_list_bootstrap list_class="dropdown-menu live_notify_list" %}
+        </div>
+    {% endif %}
     {% include "includes/modal.html" %}
 
 {% endblock %}

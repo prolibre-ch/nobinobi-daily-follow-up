@@ -3,6 +3,12 @@
 History
 -------
 
+0.1.1.17 (2022-01-13)
++++++++++++++++++++++++++
+
+* e00fad8 - Fix if no medic no display in template
+* Update requirements
+
 0.1.1.16 (2021-12-24)
 +++++++++++++++++++++++++
 

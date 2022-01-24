@@ -11,7 +11,7 @@ django-model-utils==4.2.0
 django-notifications-hq==1.6.0
 django-select2==7.9.0
 django-weasyprint==2.1.0
-django-widget-tweaks==1.4.11
+django-widget-tweaks==1.4.12
 django==3.2.11
 djangorestframework-datatables==0.7.0
 djangorestframework==3.13.1

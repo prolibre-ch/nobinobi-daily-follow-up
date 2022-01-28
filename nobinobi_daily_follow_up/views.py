@@ -129,12 +129,13 @@ class PresenceDepartureView(LoginRequiredMixin, BSModalUpdateView):
         classroom = self.kwargs.get("pk")
         child = self.object.child_id
         date = self.object.date
+        classroom_id_now = self.object.child.get_now_classroom(date).id
         next_url = self.request.GET.get('next')
         if next_url:
             url = reverse_lazy('nobinobi_daily_follow_up:DailyFollowUp_summary_week',
                                kwargs={"pk": child, "date": date})
         else:
-            url = reverse_lazy('nobinobi_daily_follow_up:Presence_detail_list', kwargs={"pk": classroom})
+            url = reverse_lazy('nobinobi_daily_follow_up:Presence_detail_list', kwargs={"pk": classroom_id_now})
         return url
 
 
@@ -162,12 +163,13 @@ class PresenceIntermediateDepartureView(LoginRequiredMixin, BSModalUpdateView):
         classroom = self.kwargs.get("pk")
         child = self.object.child_id
         date = self.object.date
+        classroom_id_now = self.object.child.get_now_classroom(date).id
         next_url = self.request.GET.get('next')
         if next_url:
             url = reverse_lazy('nobinobi_daily_follow_up:DailyFollowUp_summary_week',
                                kwargs={"pk": child, "date": date})
         else:
-            url = reverse_lazy('nobinobi_daily_follow_up:Presence_detail_list', kwargs={"pk": classroom})
+            url = reverse_lazy('nobinobi_daily_follow_up:Presence_detail_list', kwargs={"pk": classroom_id_now})
         return url
 
 
@@ -199,28 +201,51 @@ class PresenceDetailListView(LoginRequiredMixin, ListView):
         context['title'] = _("Presence of the day")
         return context
 
-    def get_list_children(self, classroom, now):
+    def get_list_children(self, classroom, now: datetime.datetime):
         """
         Function return two dict for list children
         :type now: timezone.localtime()
         :type classroom: Classroom
         """
+
+        childs = Child.objects.filter(
+            Q(classroom=classroom) |
+            (Q(replacementclassroom__classroom=classroom) & Q(
+                replacementclassroom__from_date__lte=now.date()) & (
+                 Q(replacementclassroom__end_date__gte=now.date()) | Q(
+                 replacementclassroom__end_date__isnull=True))),
+            status=Child.STATUS.in_progress,
+            childtoperiod__start_date__lte=now.date(),
+            childtoperiod__end_date__gte=now.date(),
+            childtoperiod__period__start_time__lte=now.time(),
+            childtoperiod__period__end_time__gte=now.time(),
+            childtoperiod__period__weekday=now.isoweekday()
+        )
         # get child normaly present on date and time
-        children_normaly = list(Child.objects.filter(classroom=classroom, status=Child.STATUS.in_progress,
-                                                     childtoperiod__start_date__lte=now.date(),
-                                                     childtoperiod__end_date__gte=now.date(),
-                                                     childtoperiod__period__start_time__lte=now.time(),
-                                                     childtoperiod__period__end_time__gte=now.time(),
-                                                     childtoperiod__period__weekday=now.isoweekday()
-                                                     ))
+        children_normaly = list(childs)
+
+        for child in childs:
+            if child.has_replacement_classroom(now.date()):
+                if child.classroom == classroom:
+                    children_normaly.remove(child)
+
         # ).distinct("first_name", "last_name"))
         # children_troubleshooting =
         children_missing = [abs.child for abs in
                             Absence.objects.filter(
+                                Q(child__classroom=classroom) |
+                                (Q(child__replacementclassroom__classroom=classroom) & Q(
+                                    child__replacementclassroom__from_date__lte=now.date()) & (
+                                     Q(child__replacementclassroom__end_date__gte=now.date()) | Q(
+                                     child__replacementclassroom__end_date__isnull=True))),
                                 start_date__date__lte=now.date(),
-                                end_date__date__gte=now.date(),
-                                child__classroom=classroom)
+                                end_date__date__gte=now.date())
                             ]
+
+        for child in children_missing:
+            if child.has_replacement_classroom(now.date()):
+                if child.classroom == classroom:
+                    children_missing.remove(child)
 
         if classroom.mode == Classroom.OPERATION_MODE.creche:
             children_present = [pres.child for pres in Presence.objects.filter(classroom=classroom, date=now.date())]
@@ -266,7 +291,7 @@ class PresenceDetailListView(LoginRequiredMixin, ListView):
         else:
             now = arrow.get(date)
 
-        presences = Presence.objects.filter(date=now.date(), child__classroom=classroom)
+        presences = Presence.objects.filter(date=now.date(), classroom=classroom)
 
         # present
         presences_with_arrival = presences.filter(arrival_time__isnull=False, departure_time__isnull=True)
@@ -279,9 +304,25 @@ class PresenceDetailListView(LoginRequiredMixin, ListView):
 
         # expected
         expected = []
-        children_missing = [abs.child_id for abs in
-                            Absence.objects.filter(start_date__date__lte=now, end_date__date__gte=now,
-                                                   child__classroom=classroom)]
+        children_missing = {abs.child_id: abs.child for abs in
+                            Absence.objects.filter(
+                                Q(child__classroom=classroom) |
+                                (Q(child__replacementclassroom__classroom=classroom) & Q(
+                                    child__replacementclassroom__from_date__lte=now.date()) & (
+                                     Q(child__replacementclassroom__end_date__gte=now.date()) | Q(
+                                     child__replacementclassroom__end_date__isnull=True))),
+                                start_date__date__lte=now,
+                                end_date__date__gte=now)
+                            }
+
+        child_to_remove = []
+        for child_id, child in children_missing.items():
+            if child.has_replacement_classroom(now.date()):
+                if child.classroom == classroom:
+                    child_to_remove.append(child)
+        for child in child_to_remove:
+            del children_missing[child.id]
+
         for child in children_in_classroom:
             periods = child.childtoperiod_set.all()
             weekday = now.isoweekday()
@@ -313,12 +354,12 @@ class PresenceDetailListView(LoginRequiredMixin, ListView):
         # absence
         missing = []
         # absences = Absence.objects.filter(start_date__lte=now, end_date__gte=now, child__classroom=classroom)
-        for child in children_missing:
-            if child not in children['expected']:
-                if child not in children['troubleshooting']:
-                    if child not in children['present']:
-                        if child not in children['leave']:
-                            missing.append(child)
+        for child_id, child in children_missing.items():
+            if child_id not in children['expected']:
+                if child_id not in children['troubleshooting']:
+                    if child_id not in children['present']:
+                        if child_id not in children['leave']:
+                            missing.append(child_id)
         children['missing'] = missing
         status_children['missing'] = len(missing)
 
@@ -586,11 +627,23 @@ class PresenceWeekListView(LoginRequiredMixin, TemplateView):
                             "present": 0,
                             "dayoff": False,
                         }
-                        ctps = ChildToPeriod.objects.filter(child__status=Child.STATUS.in_progress,
-                                                            start_date__lte=week_date.date(),
-                                                            end_date__gte=week_date.date(),
-                                                            period=period, child__classroom=classroom)
-                        dict[week_date.date().isoweekday()]["periods"][period.order]['expected'] = ctps.count()
+                        ctps_qs = ChildToPeriod.objects.filter(
+                            Q(child__classroom=classroom) |
+                            (Q(child__replacementclassroom__classroom=classroom) & Q(
+                                child__replacementclassroom__from_date__lte=week_date.date()) & (
+                                 Q(child__replacementclassroom__end_date__gte=week_date.date()) | Q(
+                                 child__replacementclassroom__end_date__isnull=True))),
+                            child__status=Child.STATUS.in_progress,
+                            start_date__lte=week_date.date(),
+                            end_date__gte=week_date.date(),
+                            period=period
+                        ).distinct()
+                        ctps = []
+                        for ctp in ctps_qs:
+                            if ctp.child.get_now_classroom(date=week_date.date()) == classroom:
+                                ctps.append(ctp)
+
+                        dict[week_date.date().isoweekday()]["periods"][period.order]['expected'] = len(ctps)
                         # day off
                         if week_date.isoweekday() in classroom_dayoffs:
                             dict[week_date.date().isoweekday()]["periods"][period.order]['dayoff'] = True
@@ -637,9 +690,16 @@ class PresenceWeekListView(LoginRequiredMixin, TemplateView):
             presence_day_sorting = "-child__birth_date"
         elif presence_day_sorting == "usual_name":
             presence_day_sorting = "child__usual_name"
-        children = ChildToPeriod.objects.filter(child__classroom=classroom, start_date__lte=week_dates[-1].date(),
-                                                end_date__gte=week_dates[0].date(),
-                                                child__status=Child.STATUS.in_progress).order_by(presence_day_sorting)
+        children = ChildToPeriod.objects.filter(
+            Q(child__classroom=classroom) |
+            (Q(child__replacementclassroom__classroom=classroom) & Q(
+                child__replacementclassroom__from_date__lte=week_dates[-1].date()) & (
+                 Q(child__replacementclassroom__end_date__gte=week_dates[0].date()) | Q(
+                 child__replacementclassroom__end_date__isnull=True))),
+            start_date__lte=week_dates[-1].date(),
+            end_date__gte=week_dates[0].date(),
+            child__status=Child.STATUS.in_progress
+        ).order_by(presence_day_sorting)
 
         for ctp in children:
             PresenceWeekListView.create_dict_struct_for_child(classroom_dayoffs, ctp, dict_children, period_for_day,
@@ -663,8 +723,15 @@ class PresenceWeekListView(LoginRequiredMixin, TemplateView):
 
                 if children_expected:
                     for child_to_period in children_expected:
-                        dict_children[child_to_period.child][week_date.isoweekday()]["periods"][period_order][
-                            'status'] = "expected"
+                        if child_to_period.child.get_now_classroom(date=week_date.date()) == classroom:
+                            dict_children[child_to_period.child][week_date.isoweekday()]["periods"][period_order][
+                                'status'] = "expected"
+                        else:
+                            dict_children[child_to_period.child][week_date.isoweekday()]["periods"][period_order][
+                                'status'] = "replacement_classroom"
+                        if child_to_period.child.has_replacement_classroom(week_date.date()):
+                            dict_children[child_to_period.child][week_date.isoweekday()]["periods"][period_order][
+                                'replacement_classroom'] = True
 
         absences = Absence.objects.filter(
             child__classroom=classroom,
@@ -846,6 +913,7 @@ class PresenceWeekListView(LoginRequiredMixin, TemplateView):
                             "holiday": False,
                             "closure": False,
                             "birthday": False,
+                            "replacement_classroom": None,
                         }
 
                     # Holidays

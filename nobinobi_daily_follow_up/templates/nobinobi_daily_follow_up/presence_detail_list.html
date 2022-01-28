@@ -86,20 +86,20 @@
                         <div class="col-md-2 mt-2">
                             <div
                                 class="img-container p-1
-{% if child.id in children.troubleshooting %}
-border-info
-{% elif child.id in children.present %}
-border-success
-{% elif child.id in children.missing %}
-border-danger
-{% elif child.id in children.expected %}
-border-gray
-{% elif child.id in children.leave %}
-border-dark
-{% else %}
-border
-{% endif %}
-" style="border: 7px solid; border-radius:3px;">
+                                    {% if child.id in children.troubleshooting %}
+                                    border-info
+                                    {% elif child.id in children.present %}
+                                    border-success
+                                    {% elif child.id in children.missing %}
+                                    border-danger
+                                    {% elif child.id in children.expected %}
+                                    border-gray
+                                    {% elif child.id in children.leave %}
+                                    border-dark
+                                    {% else %}
+                                    border
+                                    {% endif %}
+                                " style="border: 7px solid; border-radius:3px;">
                                 <div class="img-text">
                                     <h5>{{ child.usual_name }}{% if display_age_group_in_presence %}
                                         <small>({{ child.age_group.name.0 }})</small>{% endif %} <a
@@ -107,37 +107,37 @@ border
                                         class="far fa-eye"></i></a></h5>
                                 </div>
                                 {% spaceless %}
-
                                     <a class="presence-create"
-                                       {% if child.id in children.present %}onclick="filtering_datatable(this);"{% endif %}
+                                        {% if child in children.present %}
+                                       onclick="filtering_datatable(this);"
+                                        {% endif %}
                                        data-child-pk="{{ child.pk }}"
                                        data-usual-name="{{ child.usual_name }}"
                                        data-id="{% url 'nobinobi_daily_follow_up:Presence_create' pk=classroom.pk child_pk=child.pk %}"
-                                       data-status="{% if child.id in children.present %}1{% elif child.id in children.missing %}2
-                {% elif child.id in children.expected %}3{% elif child.id in children.leave %}4{% else %}0{% endif %}">
+                                        {% if child.id in children.present %}
+                                       data-status="1"
+                                        {% elif child.id in children.missing %}
+                                       data-status="2"
+                                        {% elif child.id in children.expected %}
+                                       data-status="3"
+                                        {% elif child.id in children.leave %}
+                                       data-status="4"
+                                        {% else %}
+                                       data-status="0"
+                                        {% endif %}>
                                         {% if child.picture and child.picture.url %}
                                             <img src="{{ child.picture.url }}" class="img-fluid img-rounded"
                                                  alt="{{ child.full_name }}">
                                         {% else %}
-                                            <img src="
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                                {% if child.gender == "boy" %}{% static "img/avatar/default-avatar-boy.png" %}{% elif child.gender == "girl" %}{% static "img/avatar/default-avatar-girl.png" %}{% else %}{% static "img/avatar/default-avatar-other.png" %}{% endif %}"
-                                                 class="img-fluid img-rounded"
-                                                 alt="{{ child.full_name }}">
+                                            <img
+                                                {% if child.gender == "boy" %}
+                                                    src="{% static "img/avatar/default-avatar-boy.png" %}"
+                                                {% elif child.gender == "girl" %}
+                                                    src="{% static "img/avatar/default-avatar-girl.png" %}"
+                                                {% else %}
+                                                    src="{% static "img/avatar/default-avatar-other.png" %}"
+                                                {% endif %}
+                                                    class="img-fluid img-rounded" alt="{{ child.full_name }}">
                                         {% endif %}
                                     </a>
                                 {% endspaceless %}

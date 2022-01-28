@@ -15,7 +15,7 @@
   ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
   -->
 {% extends "nobinobi_child/base.html" %}
-{% load i18n static crispy_forms_tags %}
+{% load i18n static crispy_forms_tags replacement_classroom_tags %}
 
 {% block title %}{{ title }} - {{ classroom }} - {{ now }}{% endblock %}
 
@@ -39,27 +39,27 @@
     <div class="card-body">
         {% include "includes/messages.html" %}
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12 table-responsive">
                 <div class="btn-toolbar" style="justify-content: center;" role="toolbar" aria-label="nav_times">
                     <div class="btn-group" style="display: contents;" role="group" aria-label="nav_times">
                         <a type="button" class="btn btn-secondary"
                            href="{% url 'nobinobi_daily_follow_up:presence_week_list' classroom_id=classroom.id date=month_before.date %}"><i
-                                class="fa fa-angle-double-left"></i></a>
+                            class="fa fa-angle-double-left"></i></a>
                         <a type="button" class="btn btn-secondary"
                            href="{% url 'nobinobi_daily_follow_up:presence_week_list' classroom_id=classroom.id date=week_before.date %}"><i
-                                class="fa fa-angle-left"></i></a>
+                            class="fa fa-angle-left"></i></a>
                         <a type="button" class="btn btn-info"
                            href="{% url 'nobinobi_daily_follow_up:presence_week_list' classroom_id=classroom.id date=today.date %}">{{ now|date:'SHORT_DATE_FORMAT' }}</a>
                         <a type="button" class="btn btn-secondary"
                            href="{% url 'nobinobi_daily_follow_up:presence_week_list' classroom_id=classroom.id date=week_after.date %}"><i
-                                class="fa fa-angle-right"></i></a>
+                            class="fa fa-angle-right"></i></a>
                         <a type="button" class="btn btn-secondary"
                            href="{% url 'nobinobi_daily_follow_up:presence_week_list' classroom_id=classroom.id date=month_after.date %}"><i
-                                class="fa fa-angle-double-right"></i></a>
+                            class="fa fa-angle-double-right"></i></a>
                     </div>
                 </div>
 
-                <table class="table table-bordered table-responsive text-center" width="100%">
+                <table class="table table-bordered text-center" width="100%">
                     <thead class="bg-dark-gradient">
                     <tr>
                         {% for day in dict_table.values %}
@@ -93,15 +93,38 @@
                                         <td class="bg-dark-gradient">&nbsp;</td>
                                     {% else %}
                                         {% spaceless %}
-                                            <td class="{% if period.absence %}bg-danger-gradient{% elif period.status == "present" %}bg-present{% elif period.status == "leave" and period.troubleshooting %}bg-troubleshooting-gradient{% elif period.status == "leave" %}bg-leave-gradient{% elif period.status == "troubleshooting" %}bg-troubleshooting{% elif period.status == "expected" %}bg-warning-gradient{% else %}bg-gray{% endif %}">
-                                                <a style="{% if period.status == "leave" %}color: #FFF;{% else %}color: #000;{% endif %}"
-                                                   href="{% if day_value.datetime.date == today.date %}
-                            {% url 'nobinobi_daily_follow_up:Presence_detail_list' child.classroom_id %}
-                            {% else %}
-                            {% url 'nobinobi_daily_follow_up:DailyFollowUp_summary_week' pk=child.id date=day_value.datetime.date %}
-                            {% endif %}">{{ child.usual_name }}</a>
+                                            <td class="
+                                                {% if period.absence %}
+                                                bg-danger-gradient
+                                                {% elif period.status == "present" %}
+                                                bg-present
+                                                {% elif period.status == "leave" and period.troubleshooting %}
+                                                bg-troubleshooting-gradient
+                                                {% elif period.status == "leave" %}
+                                                bg-leave-gradient
+                                                {% elif period.status == "troubleshooting" %}
+                                                bg-troubleshooting
+                                                {% elif period.status == "replacement_classroom" %}
+                                                bg-dark-gradient
+                                                {% elif period.replacement_classroom %}
+                                                bg-replacement-classroom
+                                                {% elif period.status == "expected" %}
+                                                bg-warning-gradient
+                                                {% else %}
+                                                bg-gray
+                                                {% endif %}
+                                            ">
+                                                <a style="{% if period.status == "leave" or period.status == "replacement_classroom" %}color: #FFF;{% else %}color: #000;{% endif %}"
+                                                   href="
+                                                    {% if day_value.datetime.date == today.date %}
+                                                    {% get_replacement_classroom_id child=child date=day_value.datetime.date as current_classroom_id %}
+                                                    {% url 'nobinobi_daily_follow_up:Presence_detail_list' current_classroom_id %}
+                                                    {% else %}
+                                                    {% url 'nobinobi_daily_follow_up:DailyFollowUp_summary_week' pk=child.id date=day_value.datetime.date %}
+                                                    {% endif %}
+                                                ">{{ child.usual_name }}</a>
                                                 <a href="{% url 'nobinobi_child:Child_detail' pk=child.pk %}"><i
-                                                        class="far fa-eye"></i></a>
+                                                    class="far fa-eye"></i></a>
                                                 {% if period.birthday %}
                                                     <i class="fas fa-birthday-cake"></i>
                                                 {% endif %}

@@ -114,23 +114,12 @@ class PresenceCreateForm(BSModalModelForm):
                 })
 
         super(PresenceCreateForm, self).__init__(*args, **kwargs)
+        # if not preselect image before add
         if self.classroom:
             if self.child_pk is None:
                 self.fields['child'].queryset = Child.objects.filter(classroom=self.classroom,
                                                                      status=Child.STATUS.in_progress)
 
-        # self.helper = FormHelper()
-        # self.helper.form_method = 'post'
-        # self.helper.form_show_labels = True
-        # self.helper.form_tag = False
-        # self.helper.layout = Layout(
-        #     Div(
-        #         Field("child", wrapper_class="col-sm-12 col-md-12"),
-        #         Field("arrival_time", wrapper_class="col-sm-12 col-md-6"),
-        #         Field("departure_time", wrapper_class="col-sm-12 col-md-6"),
-        #         css_class="row",
-        #     )
-        # )
 
     def save(self, commit=True):
         if not self.request.is_ajax():

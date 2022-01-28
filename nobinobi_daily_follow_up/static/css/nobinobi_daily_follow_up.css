@@ -34,6 +34,9 @@ div.btn-group div.dropdown-menu.live_notify_list { left: initial; right: 0 !impo
 .bg-troubleshooting { background: #812fa2; }
 .bg-troubleshooting a { color: #fff !important; }
 
+.bg-replacement-classroom { background: #c66900; }
+.bg-replacement-classroom a { color: #000 !important; }
+
 .bg-awaiting-return { background: #e83e8c; }
 .bg-awaiting-return a { color: #fff !important; }
 

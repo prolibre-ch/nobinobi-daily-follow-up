@@ -3,6 +3,12 @@
 History
 -------
 
+0.1.2 (2022-01-28)
++++++++++++++++++++++++++
+
+* a1255a6 - Feature: replacement classroom
+* update requirements
+
 0.1.1.18 (2022-01-13)
 +++++++++++++++++++++++++
 

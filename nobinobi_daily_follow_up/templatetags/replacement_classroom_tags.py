@@ -1,4 +1,4 @@
-#      Copyright (C) 2020 <Florian Alu - Prolibre - https://prolibre.com
+#      Copyright (C) 2022 <Florian Alu - Prolibre - https://prolibre.com
 #      This program is free software: you can redistribute it and/or modify
 #      it under the terms of the GNU Affero General Public License as
 #      published by the Free Software Foundation, either version 3 of the
@@ -11,6 +11,9 @@
 #
 #      You should have received a copy of the GNU Affero General Public License
 #      along with this program.  If not, see <https://www.gnu.org/licenses/>.
+from django.template.defaulttags import register
 
-__version__ = '0.1.2'
-default_app_config = 'nobinobi_daily_follow_up.apps.NobinobiDailyFollowUpConfig'
+
+@register.simple_tag
+def get_replacement_classroom_id(child, date, *args, **kwargs):
+    return child.get_now_classroom(date).id

@@ -22,6 +22,7 @@ from sys import stdout
 from datetimerange import DateTimeRange
 from django.conf import settings
 from django.contrib.auth.models import Permission
+from django.db.models import Q
 from django.utils import timezone
 from django.utils.translation import gettext as _
 from nobinobi_child.models import ChildToPeriod
@@ -277,9 +278,13 @@ def create_troubleshooting_in_daily_follow_up(sender, instance, **kwargs):
 
         if time_range.is_intersection(period_range):
             try:
-                ChildToPeriod.objects.get(child=instance.presence.child, child__status=Child.STATUS.in_progress,
-                                          start_date__lte=today, end_date__gte=today,
-                                          period=period, child__classroom=classroom)
+                ChildToPeriod.objects.filter(
+                    child=instance.presence.child,
+                    child__status=Child.STATUS.in_progress,
+                    start_date__lte=today,
+                    end_date__gte=today,
+                    period=period,
+                )
             except ChildToPeriod.DoesNotExist:
                 periods_in_range.append(period.id)
 
@@ -293,7 +298,6 @@ def create_troubleshooting_in_daily_follow_up(sender, instance, **kwargs):
             pass
         else:
             ts.delete()
-
 
     # sinon trouble
     # on check les early troubleshooting

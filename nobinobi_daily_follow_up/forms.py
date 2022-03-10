@@ -163,9 +163,11 @@ class PresenceDepartureForm(CreateUpdateAjaxMixin, forms.ModelForm):
     def clean_departure_time(self):
         data = self.cleaned_data['departure_time']
         # data = Time()
-        if data <= self.obj.arrival_time:
-            raise ValidationError(_("The departure time is less than the arrival time."), code="invalid")
-
+        if data:
+            if data <= self.obj.arrival_time:
+                raise ValidationError(_("The departure time is less than the arrival time."), code="invalid")
+        else:
+            raise ValidationError(_("You have not entered a departure time."), code="invalid")
         # Always return a value to use as the new cleaned data, even if
         # this method didn't change it.
         return data

@@ -1,4 +1,4 @@
-arrow==1.2.2
+arrow==1.2.3
 datetimerange==1.0.0
 django-admin-rangefilter==0.8.4
 django-appconf==1.0.5

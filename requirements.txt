@@ -18,7 +18,7 @@ djangorestframework==3.14.0
 drf-writable-nested==0.7.0
 django-simple-menu==1.2.1
 psycopg2-binary==2.9.4
-weasyprint==54.2
+weasyprint==57.0
 cffi==1.15.0
 argon2_cffi==21.3.0
 # nobinobi requirements

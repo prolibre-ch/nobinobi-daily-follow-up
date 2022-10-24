@@ -5,5 +5,5 @@ zest.releaser==7.0.0
 bumpversion==0.6.0
 django-model-utils==4.2.0
 django-extensions==3.2.1
-django-debug-toolbar==3.2.4
+django-debug-toolbar==3.7.0
 werkzeug==2.0.3

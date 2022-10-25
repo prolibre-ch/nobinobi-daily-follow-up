@@ -68,6 +68,27 @@ class PresenceChoiceView(LoginRequiredMixin, FormView):
     form_class = PresenceChoiceForm
     template_name = "nobinobi_daily_follow_up/presence_choice.html"
 
+    def get(self, request, *args, **kwargs):
+        """ redirect auto si un seul groupe"""
+        try:
+            allowed_classroom = Classroom.objects.get(allowed_login=request.user)
+        except Classroom.MultipleObjectsReturned:
+            pass
+        except Classroom.DoesNotExist:
+            pass
+        else:
+            return HttpResponseRedirect(reverse("nobinobi_daily_follow_up:Presence_detail_list", kwargs={"pk": allowed_classroom.pk}))
+        try:
+            group_user = list(request.user.groups.values_list(flat=True))
+            allowed_classroom = Classroom.objects.get(allowed_group_login__in=group_user)
+        except Classroom.MultipleObjectsReturned:
+            pass
+        except Classroom.DoesNotExist:
+            pass
+        else:
+            return HttpResponseRedirect(reverse("nobinobi_daily_follow_up:Presence_detail_list", kwargs={"pk": allowed_classroom.pk}))
+        return super(PresenceChoiceView, self).get(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         context = super(PresenceChoiceView, self).get_context_data()
         context['title'] = _("Choice a classroom")
@@ -527,6 +548,16 @@ class PresenceWeekListChoiceView(LoginRequiredMixin, FormView):
         """ redirect auto si un seul groupe"""
         try:
             allowed_classroom = Classroom.objects.get(allowed_login=request.user)
+        except Classroom.MultipleObjectsReturned:
+            pass
+        except Classroom.DoesNotExist:
+            pass
+        else:
+            self.classroom = allowed_classroom
+            return HttpResponseRedirect(self.get_success_url())
+        try:
+            group_user = list(request.user.groups.values_list(flat=True))
+            allowed_classroom = Classroom.objects.get(allowed_group_login__in=group_user)
         except Classroom.MultipleObjectsReturned:
             pass
         except Classroom.DoesNotExist:

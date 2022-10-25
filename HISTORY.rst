@@ -3,6 +3,12 @@
 History
 -------
 
+0.1.2.1 (2022-10-25)
++++++++++++++++++++++++++
+
+* be4b421 - ADD: When user has one group or one classroom display daily-follow-up page for this one classroom
+* update requirements
+
 0.1.2 (2022-01-28)
 +++++++++++++++++++++++++
 

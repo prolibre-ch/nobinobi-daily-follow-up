@@ -1,7 +1,7 @@
 invoke==2.0.0
 twine==4.0.2
 wheel==0.38.4
-zest.releaser==7.0.0
+zest.releaser==7.2.0
 bumpversion==0.6.0
 django-model-utils==4.3.1
 django-extensions==3.2.1

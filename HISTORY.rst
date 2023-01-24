@@ -3,6 +3,13 @@
 History
 -------
 
+0.1.2.2 (2023-01-24)
++++++++++++++++++++++++++
+
+* baacf99 - add possibility to change arrival time in resume child
+* 1c24ee9 - add only child in classroom for add absence
+* update requirements
+
 0.1.2.1 (2022-10-25)
 +++++++++++++++++++++++++
 

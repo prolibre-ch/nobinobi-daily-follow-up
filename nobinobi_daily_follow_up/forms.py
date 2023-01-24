@@ -142,10 +142,11 @@ class PresenceCreateForm(BSModalModelForm):
 class PresenceDepartureForm(CreateUpdateAjaxMixin, forms.ModelForm):
     class Meta:
         model = Presence
-        fields = ("departure_time",)
+        fields = ("arrival_time", "departure_time",)
 
         widgets = {
             "departure_time": FaTimePickerInput(options={"locale": "fr"}),
+            "arrival_time": FaTimePickerInput(options={"locale": "fr"}),
         }
 
     def __init__(self, *args, **kwargs):
@@ -162,9 +163,10 @@ class PresenceDepartureForm(CreateUpdateAjaxMixin, forms.ModelForm):
 
     def clean_departure_time(self):
         data = self.cleaned_data['departure_time']
+        data1 = self.cleaned_data['arrival_time']
         # data = Time()
         if data:
-            if data <= self.obj.arrival_time:
+            if data <= self.obj.arrival_time and data <= data1:
                 raise ValidationError(_("The departure time is less than the arrival time."), code="invalid")
         else:
             raise ValidationError(_("You have not entered a departure time."), code="invalid")

@@ -849,7 +849,7 @@
         docReady(function () {
             create_child();
             $(".absence-create").modalForm({
-                formURL: "{% url 'nobinobi_child:Absence_create' %}"
+                formURL: "{% url 'nobinobi_child:Absence_create' %}?classroom={{ classroom.id }}"
             });
             $(".presence-create-global").modalForm({
                 formURL: "{% url 'nobinobi_daily_follow_up:Presence_create' pk=classroom.pk %}"

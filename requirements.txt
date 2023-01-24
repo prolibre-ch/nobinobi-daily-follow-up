@@ -3,7 +3,7 @@ datetimerange==1.0.0
 django-admin-rangefilter==0.9.0
 django-appconf==1.0.5
 django-auto-one-to-one==3.3.5
-django-bootstrap-datepicker-plus==5.0.3
+django-bootstrap-datepicker-plus==4.0.0
 django-bootstrap-modal-forms==2.2.0
 django-crispy-forms==1.14.0
 django-extensions==3.2.1
@@ -12,7 +12,7 @@ django-notifications-hq==1.7.0
 django-select2==8.0.0
 django-weasyprint==2.2.0
 django-widget-tweaks==1.4.12
-django==4.1.5
+django==3.2.16
 djangorestframework-datatables==0.7.0
 djangorestframework==3.14.0
 drf-writable-nested==0.7.0
@@ -24,4 +24,4 @@ argon2_cffi==21.3.0
 # nobinobi requirements
 nobinobi-core==0.1.4.6
 nobinobi-staff==0.1.6.8
-nobinobi-child==0.1.4.7
+nobinobi-child==0.1.4.8

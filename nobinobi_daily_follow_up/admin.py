@@ -16,7 +16,7 @@ from django.contrib import admin
 
 from nobinobi_daily_follow_up.models import Meal, Lotion, Presence, DailyFollowUp, Nap, DiaperChange, Reception, \
     GiveMedication, MealDailyFollowUp, Medication, TypeMedication, LotionDailyFollowUp, ActivityGroup, TypeActivity, \
-    Activity, Troubleshooting, DailyFollowUpToMedication, EarlyTroubleshooting
+    Activity, Troubleshooting, DailyFollowUpToMedication, EarlyTroubleshooting, NobinobiDailyFollowUpSettings
 
 
 class DiaperChangeInline(admin.TabularInline):
@@ -214,3 +214,8 @@ class EarlyTroubleshootingAdmin(admin.ModelAdmin):
         'date', 'child')
     search_fields = (
         'daily_follow_up', "periods",)
+
+
+@admin.register(NobinobiDailyFollowUpSettings)
+class NobinobiDailyFollowUpSettingsAdmin(admin.ModelAdmin):
+    pass

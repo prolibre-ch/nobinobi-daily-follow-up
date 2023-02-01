@@ -3,6 +3,13 @@
 History
 -------
 
+0.1.2.3 (2023-02-01)
++++++++++++++++++++++++++
+
+* 4f14684 - Add check to display default menu
+* 79c6438 - fix test exemple
+* c51d34e - Add settings models
+
 0.1.2.2 (2023-01-24)
 +++++++++++++++++++++++++
 

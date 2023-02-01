@@ -560,3 +560,21 @@ class EarlyTroubleshooting(models.Model):
 
     def __str__(self):
         return _("Early Troubleshooting: {} - {}").format(self.child.full_name, self.date)
+
+
+class NobinobiDailyFollowUpSettings(models.Model):
+    """Models to store settings of module Nobinobi Daily follow up"""
+
+    default_menu = models.BooleanField(default=True, help_text=_("Requires a restart of the program to see the difference."))
+
+    class Meta:
+        # ordering = ('', '',)
+        verbose_name = _('Nobinobi Daily follow-up Setting')
+        # verbose_name_plural = _('')
+
+    def __str__(self):
+        return self._meta.verbose_name
+
+    @staticmethod
+    def get_settings():
+        return NobinobiDailyFollowUpSettings.objects.filter().first()

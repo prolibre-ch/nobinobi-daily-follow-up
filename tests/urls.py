@@ -12,6 +12,7 @@ urlpatterns = [
     path('', include('nobinobi_staff.urls', namespace='nobinobi_staff')),
     path('', include('nobinobi_child.urls', namespace='nobinobi_child')),
     path('', include('nobinobi_daily_follow_up.urls', namespace='nobinobi_daily_follow_up')),
+    path('', include('notifications.urls', namespace='notifications')),
     path('select2/', include('django_select2.urls')),
 
 ]

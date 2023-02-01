@@ -31,7 +31,6 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'crispy_forms',
     'django_extensions',
-    'notifications',
     'rest_framework',
     'rest_framework.authtoken',
     'rest_framework_datatables',

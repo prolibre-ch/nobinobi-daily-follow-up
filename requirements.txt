@@ -22,6 +22,6 @@ weasyprint==57.2
 cffi==1.15.1
 argon2_cffi==21.3.0
 # nobinobi requirements
-nobinobi-core==0.1.4.6
-nobinobi-staff==0.1.6.8
-nobinobi-child==0.1.4.8
+nobinobi-core>=0.1.4.6
+nobinobi-staff>=0.1.6.8
+nobinobi-child==0.1.4.10

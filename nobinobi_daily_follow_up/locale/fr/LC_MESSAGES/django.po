@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-10 11:35+0100\n"
-"PO-Revision-Date: 2022-03-10 11:36+0100\n"
+"POT-Creation-Date: 2023-02-01 13:52+0100\n"
+"PO-Revision-Date: 2023-02-01 13:54+0100\n"
 "Last-Translator: Florian Alu <fla@grapps.fr>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -16,10 +16,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.0\n"
+"X-Generator: Poedit 3.2.2\n"
 
-#: .\forms.py:84 .\forms.py:407 .\forms.py:442 .\forms.py:486 .\forms.py:525
-#: .\forms.py:573
+#: .\forms.py:84 .\forms.py:409 .\forms.py:444 .\forms.py:488 .\forms.py:527
+#: .\forms.py:575
 msgid "Submit"
 msgstr "Envoyer"
 
@@ -27,23 +27,23 @@ msgstr "Envoyer"
 msgid "Presence already exists."
 msgstr "La présence existe déjà."
 
-#: .\forms.py:168
+#: .\forms.py:170
 msgid "The departure time is less than the arrival time."
 msgstr "L’heure de départ est inférieure à l’heure d’arrivée."
 
-#: .\forms.py:170
+#: .\forms.py:172
 msgid "You have not entered a departure time."
 msgstr "Vous n’avez pas entré d’heure de départ."
 
-#: .\forms.py:325 .\models.py:424
+#: .\forms.py:327 .\models.py:424
 msgid "Staff"
 msgstr "Personnel"
 
-#: .\forms.py:351
+#: .\forms.py:353
 msgid "Check"
 msgstr "Vérifier"
 
-#: .\forms.py:352
+#: .\forms.py:354
 msgid ""
 "By checking this box you confirm that you want to delay taking the "
 "medication."
@@ -51,7 +51,7 @@ msgstr ""
 "En cochant cette case, vous confirmez que vous voulez retarder la prise du "
 "médicament."
 
-#: .\forms.py:374 .\forms.py:542 .\models.py:41 .\models.py:316 .\models.py:545
+#: .\forms.py:376 .\forms.py:544 .\models.py:41 .\models.py:316 .\models.py:545
 #: .\templates\nobinobi_daily_follow_up\earlytroubleshooting\earlytroubleshooting_detail.html:14
 #: .\templates\nobinobi_daily_follow_up\earlytroubleshooting\earlytroubleshooting_list.html:38
 #: .\templates\nobinobi_daily_follow_up\presence_detail_list.html:192
@@ -59,28 +59,28 @@ msgstr ""
 msgid "Child"
 msgstr "Enfant"
 
-#: .\forms.py:384 .\forms.py:578 .\models.py:46 .\models.py:429 .\models.py:549
+#: .\forms.py:386 .\forms.py:580 .\models.py:46 .\models.py:429 .\models.py:549
 #: .\templates\nobinobi_daily_follow_up\dailyfollowup\summary_week.html:115
 #: .\templates\nobinobi_daily_follow_up\earlytroubleshooting\earlytroubleshooting_detail.html:18
 #: .\templates\nobinobi_daily_follow_up\earlytroubleshooting\earlytroubleshooting_list.html:39
 msgid "Date"
 msgstr "Date"
 
-#: .\forms.py:429 .\models.py:54
+#: .\forms.py:431 .\models.py:54
 msgid "Classroom"
 msgstr "Salle de classe"
 
-#: .\forms.py:454 .\forms.py:498
+#: .\forms.py:456 .\forms.py:500
 msgid "Name of children"
 msgstr "Nom des enfants"
 
-#: .\forms.py:457 .\models.py:132
+#: .\forms.py:459 .\models.py:132
 #: .\templates\nobinobi_daily_follow_up\dailyfollowup\summary_week.html:455
 #: .\templates\nobinobi_daily_follow_up\presence_detail_list.html:567
 msgid "Activity"
 msgstr "Activité"
 
-#: .\forms.py:462 .\forms.py:500 .\models.py:80 .\models.py:128 .\models.py:219
+#: .\forms.py:464 .\forms.py:502 .\models.py:80 .\models.py:128 .\models.py:219
 #: .\models.py:319 .\models.py:400 .\models.py:484
 #: .\templates\nobinobi_daily_follow_up\dailyfollowup\summary_week.html:235
 #: .\templates\nobinobi_daily_follow_up\dailyfollowup\summary_week.html:311
@@ -97,59 +97,59 @@ msgstr "Activité"
 msgid "Comment"
 msgstr "Remarque"
 
-#: .\forms.py:501 .\models.py:79
+#: .\forms.py:503 .\models.py:79
 msgid "Important"
 msgstr "Important"
 
-#: .\forms.py:529 .\forms.py:530 .\forms.py:532 .\forms.py:534 .\forms.py:536
+#: .\forms.py:531 .\forms.py:532 .\forms.py:534 .\forms.py:536 .\forms.py:538
 #: .\models.py:430
 msgid "Give hour"
 msgstr "Donner à"
 
-#: .\forms.py:598
+#: .\forms.py:600
 msgid "No valid period selected."
 msgstr "Aucune période valide sélectionnée."
 
-#: .\menus.py:25 .\models.py:103 .\models.py:116 .\models.py:184
+#: .\menus.py:29 .\models.py:103 .\models.py:116 .\models.py:184
 #: .\models.py:207 .\models.py:256 .\models.py:277 .\models.py:523
 #: .\templates\nobinobi_daily_follow_up\dailyfollowup\group_choice_classroom.html:24
 #: .\templates\nobinobi_daily_follow_up\dailyfollowup\group_daily_follow_up_update.html:34
 msgid "Daily follow-up"
 msgstr "Suivi journalier"
 
-#: .\menus.py:30
+#: .\menus.py:34
 msgid "Presences of the day"
 msgstr "Présences du jour"
 
-#: .\menus.py:34
+#: .\menus.py:38
 msgid "Presences of the week"
 msgstr "Présences de la semaine"
 
-#: .\menus.py:38
+#: .\menus.py:42
 msgid "Institution: Presences"
 msgstr "Institution: Présences"
 
-#: .\menus.py:43
+#: .\menus.py:47
 msgid "Summary by child"
 msgstr "Résumé par enfant"
 
-#: .\menus.py:47
+#: .\menus.py:51
 msgid "Stroll List"
 msgstr "Liste promenade"
 
-#: .\menus.py:51
+#: .\menus.py:55
 msgid "Group activities"
 msgstr "Activités de groupe"
 
-#: .\menus.py:55
+#: .\menus.py:59
 msgid "Group notes"
 msgstr "Remarques de groupe"
 
-#: .\menus.py:59
+#: .\menus.py:63
 msgid "Multiday medication"
 msgstr "Médicament sur plusieurs jours"
 
-#: .\menus.py:63
+#: .\menus.py:67
 msgid "Early troubleshooting"
 msgstr "Dépannage anticipé"
 
@@ -568,6 +568,14 @@ msgstr "Dépannages anticipés"
 msgid "Early Troubleshooting: {} - {}"
 msgstr "Dépannage Anticipé: {} - {}"
 
+#: .\models.py:568
+msgid "Requires a restart of the program to see the difference."
+msgstr "Il faut relancer le programme pour voir la différence."
+
+#: .\models.py:572
+msgid "Nobinobi Daily follow-up Setting"
+msgstr "Configuration de Nobinobi Suivi journalier"
+
 #: .\signals.py:50 .\signals.py:94
 msgid "Groups {} created successfully."
 msgstr "Groupes {} créés avec succès."
@@ -966,31 +974,31 @@ msgstr "Portable"
 msgid "Professional"
 msgstr "Professionnel"
 
-#: .\views.py:73
+#: .\views.py:94
 msgid "Choice a classroom"
 msgstr "Choisir une salle de classe"
 
-#: .\views.py:85
+#: .\views.py:106
 msgid "Success: Presence was created."
 msgstr "Succès : La présence a été créée."
 
-#: .\views.py:111 .\views.py:146
+#: .\views.py:132 .\views.py:167
 msgid "Success: Presence was updated."
 msgstr "Succès : La présence a été mise à jour."
 
-#: .\views.py:201
+#: .\views.py:222
 msgid "Presence of the day"
 msgstr "Présence du jour"
 
-#: .\views.py:547
+#: .\views.py:578
 msgid "Classroom choice for presence week list"
 msgstr "Choix de salle de classe pour la liste de semaine de présence"
 
-#: .\views.py:583 .\views.py:1007
+#: .\views.py:614 .\views.py:1038
 msgid "Presence week list"
 msgstr "Liste de la semaine de présence"
 
-#: .\views.py:673 .\views.py:1095
+#: .\views.py:704 .\views.py:1126
 msgid ""
 "You have not entered an organization for this classroom, institutional "
 "closures will not be taken into account."
@@ -998,199 +1006,199 @@ msgstr ""
 "Vous n'avez pas entré d'organisation pour cette salle de classe, les "
 "fermetures institutionnelles ne seront pas prises en comptes."
 
-#: .\views.py:754 .\views.py:1165
+#: .\views.py:785 .\views.py:1196
 msgid "The absence {} has a start date after the end date."
 msgstr "L’absence {} a une date de début après la date de fin."
 
-#: .\views.py:956
+#: .\views.py:987
 msgid "Admin Presence week list"
 msgstr "Liste de la semaine de présence de l'administrateur"
 
-#: .\views.py:1389
+#: .\views.py:1420
 msgid "Success: Activity was created."
 msgstr "Succès : L'activité a été créée."
 
-#: .\views.py:1411
+#: .\views.py:1442
 msgid "Success: Activity was deleted."
 msgstr "Succès : L'activité a été supprimée."
 
-#: .\views.py:1434
+#: .\views.py:1465
 msgid "Success: Activity was updated."
 msgstr "Succès : L'activité a été mise à jour."
 
-#: .\views.py:1497
+#: .\views.py:1528
 msgid "Success: Nap was created."
 msgstr "Succès: La sieste a été créée."
 
-#: .\views.py:1519
+#: .\views.py:1550
 msgid "Success: Nap was deleted."
 msgstr "Succès: La sieste a été supprimée."
 
-#: .\views.py:1542
+#: .\views.py:1573
 msgid "Success: Nap was updated."
 msgstr "Succès: la sieste a été mise à jour."
 
-#: .\views.py:1577
+#: .\views.py:1608
 msgid "Success: Daily follow-up was updated."
 msgstr "Succès : Le suivi journalier a été mis à jour."
 
-#: .\views.py:1602
+#: .\views.py:1633
 msgid "Choice a summary for a week Daily follow-up"
 msgstr "Choix d'un résumé pour une semaine Suivi quotidien"
 
-#: .\views.py:1620
+#: .\views.py:1651
 msgid "Summary for a week Daily follow-up"
 msgstr "Résumé pour une semaine de Suivi Journalier"
 
-#: .\views.py:1631
+#: .\views.py:1662
 msgid "Success: Lotion was created."
 msgstr "Succès: La crème a été créée."
 
-#: .\views.py:1653
+#: .\views.py:1684
 msgid "Success: Lotion was deleted."
 msgstr "Succès: La crème a été supprimée."
 
-#: .\views.py:1676
+#: .\views.py:1707
 msgid "Success: Lotion was updated."
 msgstr "Succès: La crème a été mise à jour."
 
-#: .\views.py:1699
+#: .\views.py:1730
 msgid "Success: Diaper change was created."
 msgstr "Succès : Le changement de couche a été créé."
 
-#: .\views.py:1721
+#: .\views.py:1752
 msgid "Success: Diaper change was deleted."
 msgstr "Succès : Le changement de couche a été supprimé."
 
-#: .\views.py:1744
+#: .\views.py:1775
 msgid "Success: Diaper change was updated."
 msgstr "Succès : Le changement de couche a été mis à jour."
 
-#: .\views.py:1786
+#: .\views.py:1817
 msgid "Success: Daily Follow-Up to Medication was created."
 msgstr "Succès : Le suivi quotidien des médicaments a été créé."
 
-#: .\views.py:1808
+#: .\views.py:1839
 msgid "Success: DailyFollowUpToMedication was deleted."
 msgstr "Succès : Le suivi quotidien des médicaments a été suprimée."
 
-#: .\views.py:1831 .\views.py:1900
+#: .\views.py:1862 .\views.py:1931
 msgid "Success: Medication was updated."
 msgstr "Succès : Le médicament a été mis à jour."
 
-#: .\views.py:1853
+#: .\views.py:1884
 msgid "Success: Medication was created."
 msgstr "Succès : Le médicament a été créé."
 
-#: .\views.py:1877
+#: .\views.py:1908
 msgid "Success: Medication was deleted."
 msgstr "Succès : Le médicament a été supprimé."
 
-#: .\views.py:1961
+#: .\views.py:1992
 msgid "Success: Reception was updated."
 msgstr "Succès : La présence a été mise à jour."
 
-#: .\views.py:1984
+#: .\views.py:2015
 msgid "Success: Give Medication was created."
 msgstr "Succès : Donner des médicaments a été créé."
 
-#: .\views.py:2011
+#: .\views.py:2042
 msgid "Success: Give Medication was deleted."
 msgstr "Succès : Donner des médicaments a été supprimé."
 
-#: .\views.py:2034
+#: .\views.py:2065
 msgid "Success: Give Medication was updated."
 msgstr "Succès : Donner des médicaments a été mis à jour."
 
-#: .\views.py:2057
+#: .\views.py:2088
 msgid "Success: Give Medication was delayed."
 msgstr "Succès : Administration des médicaments a été retardé."
 
-#: .\views.py:2106
+#: .\views.py:2137
 msgid "Success: Meals was created."
 msgstr "Succès : Les repas ont été créés."
 
-#: .\views.py:2139
+#: .\views.py:2170
 msgid "Success: Meals was updated."
 msgstr "Succès : Les repas ont été mis à jour."
 
-#: .\views.py:2204
+#: .\views.py:2235
 msgid "Classroom choice for stroll"
 msgstr "Choix de salle de classe pour la promenade"
 
-#: .\views.py:2240
+#: .\views.py:2271
 msgid "The classroom does not exist."
 msgstr "La salle de classe n'existe pas."
 
-#: .\views.py:2243
+#: .\views.py:2274
 msgid "There are several classrooms with this ID."
 msgstr "Il y a plusieurs salles de classe avec cette ID."
 
-#: .\views.py:2275
+#: .\views.py:2306
 msgid "Classroom choice for Group activity"
 msgstr "Choix de la salle de classe pour l'activité de groupe"
 
-#: .\views.py:2313 .\views.py:2431
+#: .\views.py:2344 .\views.py:2462
 msgid "Classroom is not found"
 msgstr "La salle de classe n'existe pas."
 
-#: .\views.py:2320
+#: .\views.py:2351
 msgid "Classroom activities"
 msgstr "Activités en classe"
 
-#: .\views.py:2351
+#: .\views.py:2382
 msgid "{} does not have a presence today."
 msgstr "{} n'a pas de présence aujourd'hui."
 
-#: .\views.py:2355
+#: .\views.py:2386
 msgid "There is no daily follow-up today."
 msgstr "Il n'y a pas de suivi journalier aujourd'hui."
 
-#: .\views.py:2358
+#: .\views.py:2389
 msgid "Activity (s) added"
 msgstr "Activité(s) ajoutée(s)"
 
-#: .\views.py:2392
+#: .\views.py:2423
 msgid "Classroom choice for Group daily follow-up"
 msgstr "Choix de salle de classe pour le suivi journalier de la classe"
 
-#: .\views.py:2438
+#: .\views.py:2469
 msgid "Classroom comment & important"
 msgstr "Commentaire & important pour la salle de classe"
 
-#: .\views.py:2455
+#: .\views.py:2486
 msgid "{} does not have a daily follow-up today."
 msgstr "{} n'a pas de suivi journalier aujourd'hui."
 
-#: .\views.py:2470
+#: .\views.py:2501
 msgid "Group comment or/and important (s) added"
 msgstr "Commentaire de groupe ou/et important (s) ajouté"
 
-#: .\views.py:2558
+#: .\views.py:2589
 msgid "Multi Day Medication"
 msgstr "Médicament sur plusieurs jours"
 
-#: .\views.py:2565
+#: .\views.py:2596
 msgid "The multi-day medication was created."
 msgstr "Le médicament de plusieurs jours a été créé."
 
-#: .\views.py:2607
+#: .\views.py:2638
 msgid "The give medication for {} was created at {}."
 msgstr "Le médicament pour {} a été créé à {}."
 
-#: .\views.py:2624
+#: .\views.py:2655
 msgid "Early Troubleshooting list"
 msgstr "Liste des dépannages anticipés"
 
-#: .\views.py:2634
+#: .\views.py:2665
 msgid "Success: Early Troubleshooting was created."
 msgstr "Le succès : Le dépannage anticipé a été créé."
 
-#: .\views.py:2641
+#: .\views.py:2672
 msgid "Success: Early Troubleshooting was deleted."
 msgstr "Succès : Le dépannage anticipé a été supprimé."
 
-#: .\views.py:2652
+#: .\views.py:2683
 msgid "Success: Early Troubleshooting was updated."
 msgstr "Succès : Le dépannage anticipé a été mis à jour."
 

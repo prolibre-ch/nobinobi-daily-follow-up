@@ -16,7 +16,7 @@ django==4.2.1
 djangorestframework-datatables==0.7.0
 djangorestframework==3.14.0
 drf-writable-nested==0.7.0
-django-simple-menu==2.1.0
+django-simple-menu==2.1.1
 psycopg2-binary==2.9.5
 weasyprint==57.2
 cffi==1.15.1

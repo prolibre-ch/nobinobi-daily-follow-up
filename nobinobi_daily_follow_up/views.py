@@ -408,7 +408,8 @@ def filter_presence_by_range_arrival_departure(now, date, classroom_id):
     periods = list(
         Period.objects.filter(weekday__exact=now.isoweekday()).values_list("start_time", "end_time").order_by(
             "order"))
-    hour = None
+    hour0 = None
+    hour1 = None
     for period in periods:
         start_datetime = datetime.datetime.combine(now, period[0])
         end_datetime = datetime.datetime.combine(now, period[1])

@@ -3,6 +3,12 @@
 History
 -------
 
+0.1.2.4 (2023-05-23)
++++++++++++++++++++++++++
+
+* 6d7582f - Fix: local variable 'hour0' referenced before assignment
+* Update requirements
+
 0.1.2.3 (2023-02-01)
 +++++++++++++++++++++++++
 

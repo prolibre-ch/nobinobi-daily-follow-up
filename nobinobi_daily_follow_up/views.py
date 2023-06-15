@@ -1425,9 +1425,10 @@ class ActivityCreateView(LoginRequiredMixin, BSModalCreateView):
         return super(ActivityCreateView, self).form_valid(form)
 
     def get_success_url(self):
-        classroom = self.object.daily_follow_up.presence.child.classroom_id
-        child = self.object.daily_follow_up.presence.child_id
-        date = self.object.daily_follow_up.presence.date
+        dfu = get_object_or_404(DailyFollowUp, id=self.kwargs['daily_follow_up'])
+        classroom = dfu.presence.child.classroom_id
+        child = dfu.presence.child_id
+        date = dfu.presence.date
         next_url = self.request.GET.get('next')
         if next_url:
             url = reverse_lazy('nobinobi_daily_follow_up:DailyFollowUp_summary_week',
@@ -1533,9 +1534,10 @@ class NapCreateView(LoginRequiredMixin, BSModalCreateView):
         return super(NapCreateView, self).form_valid(form)
 
     def get_success_url(self):
-        classroom = self.object.daily_follow_up.presence.child.classroom_id
-        child = self.object.daily_follow_up.presence.child_id
-        date = self.object.daily_follow_up.presence.date
+        dfu = get_object_or_404(DailyFollowUp, id=self.kwargs['daily_follow_up'])
+        classroom = dfu.presence.child.classroom_id
+        child = dfu.presence.child_id
+        date = dfu.presence.date
         next_url = self.request.GET.get('next')
         if next_url:
             url = reverse_lazy('nobinobi_daily_follow_up:DailyFollowUp_summary_week',
@@ -1667,9 +1669,10 @@ class LotionDailyFollowUpCreateView(LoginRequiredMixin, BSModalCreateView):
         return super(LotionDailyFollowUpCreateView, self).form_valid(form)
 
     def get_success_url(self):
-        classroom = self.object.daily_follow_up.presence.child.classroom_id
-        child = self.object.daily_follow_up.presence.child_id
-        date = self.object.daily_follow_up.presence.date
+        dfu = get_object_or_404(DailyFollowUp, id=self.kwargs['daily_follow_up'])
+        classroom = dfu.presence.child.classroom_id
+        child = dfu.presence.child_id
+        date = dfu.presence.date
         next_url = self.request.GET.get('next')
         if next_url:
             url = reverse_lazy('nobinobi_daily_follow_up:DailyFollowUp_summary_week',
@@ -1735,9 +1738,10 @@ class DiaperChangeCreateView(LoginRequiredMixin, BSModalCreateView):
         return super(DiaperChangeCreateView, self).form_valid(form)
 
     def get_success_url(self):
-        classroom = self.object.daily_follow_up.presence.child.classroom_id
-        child = self.object.daily_follow_up.presence.child_id
-        date = self.object.daily_follow_up.presence.date
+        dfu = get_object_or_404(DailyFollowUp, id=self.kwargs['daily_follow_up'])
+        classroom = dfu.presence.child.classroom_id
+        child = dfu.presence.child_id
+        date = dfu.presence.date
         next_url = self.request.GET.get('next')
         if next_url:
             url = reverse_lazy('nobinobi_daily_follow_up:DailyFollowUp_summary_week',
@@ -1822,9 +1826,10 @@ class DailyFollowUpToMedicationCreateView(LoginRequiredMixin, BSModalCreateView)
         return super(DailyFollowUpToMedicationCreateView, self).form_valid(form)
 
     def get_success_url(self):
-        classroom = self.object.daily_follow_up.presence.child.classroom_id
-        child = self.object.daily_follow_up.presence.child_id
-        date = self.object.daily_follow_up.presence.date
+        dfu = get_object_or_404(DailyFollowUp, id=self.kwargs['daily_follow_up'])
+        classroom = dfu.presence.child.classroom_id
+        child = dfu.presence.child_id
+        date = dfu.presence.date
         next_url = self.request.GET.get('next')
         if next_url:
             url = reverse_lazy('nobinobi_daily_follow_up:DailyFollowUp_summary_week',
@@ -1891,9 +1896,10 @@ class MedicationCreateView(LoginRequiredMixin, BSModalCreateView):
         return kwargs
 
     def get_success_url(self):
-        classroom = self.kwargs.get("classroom_id")
-        child = self.kwargs.get("child")
-        date = Presence.objects.get(dailyfollowup__pk=self.kwargs.get("daily_follow_up")).date
+        dfu = get_object_or_404(DailyFollowUp, id=self.kwargs['daily_follow_up'])
+        classroom = dfu.presence.child.classroom_id
+        child = dfu.presence.child_id
+        date = dfu.presence.date
         next_url = self.request.GET.get('next')
         if next_url:
             url = reverse_lazy('nobinobi_daily_follow_up:DailyFollowUp_summary_week',
@@ -2025,9 +2031,10 @@ class GiveMedicationCreateView(LoginRequiredMixin, BSModalCreateView):
         return super(GiveMedicationCreateView, self).form_valid(form)
 
     def get_success_url(self):
-        classroom = self.object.medication.child.classroom_id
-        child = self.object.medication.child_id
-        date = self.object.date
+        dfu = get_object_or_404(DailyFollowUp, id=self.kwargs['daily_follow_up'])
+        classroom = dfu.presence.child.classroom_id
+        child = dfu.presence.child_id
+        date = dfu.presence.date
         next_url = self.request.GET.get('next')
         if next_url:
             url = reverse_lazy('nobinobi_daily_follow_up:DailyFollowUp_summary_week',
@@ -2144,9 +2151,10 @@ class MealDailyFollowUpCreateView(LoginRequiredMixin, BSModalCreateView):
         return super(MealDailyFollowUpCreateView, self).form_invalid(form)
 
     def get_success_url(self):
-        classroom = self.object.daily_follow_up.presence.child.classroom_id
-        child = self.object.daily_follow_up.presence.child_id
-        date = self.object.daily_follow_up.presence.date
+        dfu = get_object_or_404(DailyFollowUp, id=self.kwargs['daily_follow_up'])
+        classroom = dfu.presence.child.classroom_id
+        child = dfu.presence.child_id
+        date = dfu.presence.date
         next_url = self.request.GET.get('next')
         if next_url:
             url = reverse_lazy('nobinobi_daily_follow_up:DailyFollowUp_summary_week',

@@ -3,6 +3,13 @@
 History
 -------
 
+0.1.2.5 (2023-06-15)
++++++++++++++++++++++++++
+
+* 4e6cee2 - FIX: when create in presence day in table naps, lotion,medication, etc
+* 5e04f16 - Fix new version of crispy forms
+* Update requirements
+
 0.1.2.4 (2023-05-23)
 +++++++++++++++++++++++++
 

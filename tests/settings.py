@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'phonenumber_field',
     'crispy_forms',
+    "crispy_bootstrap5",
     'django_extensions',
     'rest_framework',
     'rest_framework.authtoken',
@@ -161,3 +162,7 @@ PRESENCE_DAY_SORTING = 'usual_name'
 
 """ DISPLAY AGE GROUP IN PRESENCE """
 DISPLAY_AGE_GROUP_IN_PRESENCE = False
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"

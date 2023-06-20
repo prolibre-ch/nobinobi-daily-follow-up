@@ -3,6 +3,12 @@
 History
 -------
 
+0.1.2.6 (2023-06-20)
++++++++++++++++++++++++++
+
+* 33ddd86 - fix error in create presence day table
+* Update requirements
+
 0.1.2.5 (2023-06-15)
 +++++++++++++++++++++++++
 

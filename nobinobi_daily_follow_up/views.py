@@ -1425,7 +1425,7 @@ class ActivityCreateView(LoginRequiredMixin, BSModalCreateView):
         return super(ActivityCreateView, self).form_valid(form)
 
     def get_success_url(self):
-        dfu = get_object_or_404(DailyFollowUp, id=self.kwargs['daily_follow_up'])
+        dfu = get_object_or_404(DailyFollowUp, presence_id=self.kwargs['daily_follow_up'])
         classroom = dfu.presence.child.classroom_id
         child = dfu.presence.child_id
         date = dfu.presence.date
@@ -1534,7 +1534,7 @@ class NapCreateView(LoginRequiredMixin, BSModalCreateView):
         return super(NapCreateView, self).form_valid(form)
 
     def get_success_url(self):
-        dfu = get_object_or_404(DailyFollowUp, id=self.kwargs['daily_follow_up'])
+        dfu = get_object_or_404(DailyFollowUp, presence_id=self.kwargs['daily_follow_up'])
         classroom = dfu.presence.child.classroom_id
         child = dfu.presence.child_id
         date = dfu.presence.date
@@ -1669,7 +1669,7 @@ class LotionDailyFollowUpCreateView(LoginRequiredMixin, BSModalCreateView):
         return super(LotionDailyFollowUpCreateView, self).form_valid(form)
 
     def get_success_url(self):
-        dfu = get_object_or_404(DailyFollowUp, id=self.kwargs['daily_follow_up'])
+        dfu = get_object_or_404(DailyFollowUp, presence_id=self.kwargs['daily_follow_up'])
         classroom = dfu.presence.child.classroom_id
         child = dfu.presence.child_id
         date = dfu.presence.date
@@ -1738,7 +1738,7 @@ class DiaperChangeCreateView(LoginRequiredMixin, BSModalCreateView):
         return super(DiaperChangeCreateView, self).form_valid(form)
 
     def get_success_url(self):
-        dfu = get_object_or_404(DailyFollowUp, id=self.kwargs['daily_follow_up'])
+        dfu = get_object_or_404(DailyFollowUp, presence_id=self.kwargs['daily_follow_up'])
         classroom = dfu.presence.child.classroom_id
         child = dfu.presence.child_id
         date = dfu.presence.date
@@ -1826,7 +1826,7 @@ class DailyFollowUpToMedicationCreateView(LoginRequiredMixin, BSModalCreateView)
         return super(DailyFollowUpToMedicationCreateView, self).form_valid(form)
 
     def get_success_url(self):
-        dfu = get_object_or_404(DailyFollowUp, id=self.kwargs['daily_follow_up'])
+        dfu = get_object_or_404(DailyFollowUp, presence_id=self.kwargs['daily_follow_up'])
         classroom = dfu.presence.child.classroom_id
         child = dfu.presence.child_id
         date = dfu.presence.date
@@ -1896,7 +1896,7 @@ class MedicationCreateView(LoginRequiredMixin, BSModalCreateView):
         return kwargs
 
     def get_success_url(self):
-        dfu = get_object_or_404(DailyFollowUp, id=self.kwargs['daily_follow_up'])
+        dfu = get_object_or_404(DailyFollowUp, presence_id=self.kwargs['daily_follow_up'])
         classroom = dfu.presence.child.classroom_id
         child = dfu.presence.child_id
         date = dfu.presence.date
@@ -2031,7 +2031,7 @@ class GiveMedicationCreateView(LoginRequiredMixin, BSModalCreateView):
         return super(GiveMedicationCreateView, self).form_valid(form)
 
     def get_success_url(self):
-        dfu = get_object_or_404(DailyFollowUp, id=self.kwargs['daily_follow_up'])
+        dfu = get_object_or_404(DailyFollowUp, presence_id=self.kwargs['daily_follow_up'])
         classroom = dfu.presence.child.classroom_id
         child = dfu.presence.child_id
         date = dfu.presence.date
@@ -2151,7 +2151,7 @@ class MealDailyFollowUpCreateView(LoginRequiredMixin, BSModalCreateView):
         return super(MealDailyFollowUpCreateView, self).form_invalid(form)
 
     def get_success_url(self):
-        dfu = get_object_or_404(DailyFollowUp, id=self.kwargs['daily_follow_up'])
+        dfu = get_object_or_404(DailyFollowUp, presence_id=self.kwargs['daily_follow_up'])
         classroom = dfu.presence.child.classroom_id
         child = dfu.presence.child_id
         date = dfu.presence.date

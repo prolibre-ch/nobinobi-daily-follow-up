@@ -166,3 +166,18 @@ DISPLAY_AGE_GROUP_IN_PRESENCE = False
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+# The link above contains all settings
+BOOTSTRAP_DATEPICKER_PLUS = {
+    "options": {
+        "locale": "fr",
+    },
+    "variant_options": {
+        "date": {
+            "format": "DD/MM/YYYY",
+        },
+        "time": {
+            "format": "HH:mm",
+        },
+    }
+}

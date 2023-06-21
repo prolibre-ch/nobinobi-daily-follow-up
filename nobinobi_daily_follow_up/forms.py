@@ -18,7 +18,6 @@ from bootstrap_modal_forms.mixins import CreateUpdateAjaxMixin, PopRequestMixin
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Div, Field
 from django import forms
-from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
@@ -38,8 +37,8 @@ from nobinobi_daily_follow_up.models import Reception, MealDailyFollowUp, Nap, L
 from nobinobi_daily_follow_up.utils import GroupedModelMultiChoiceField
 
 
-class FaTimePickerInput(TimePickerInput):
-    template_name = 'nobinobi_daily_follow_up/bootstrap_datepicker_plus/time-picker.html'
+# class FaTimePickerInput(TimePickerInput):
+#     template_name = 'nobinobi_daily_follow_up/bootstrap_datepicker_plus/time-picker.html'
 
 
 class InlineImgRadioInput(forms.RadioSelect):
@@ -98,8 +97,8 @@ class PresenceCreateForm(BSModalModelForm):
         fields = ("child", "arrival_time", "departure_time")
 
         widgets = {
-            "arrival_time": FaTimePickerInput(options={"locale": "fr"}).start_of('presence days'),
-            "departure_time": FaTimePickerInput(options={"locale": "fr"}).end_of('presence days'),
+            "arrival_time": TimePickerInput(),
+            "departure_time": TimePickerInput(range_from="arrival_time"),
         }
 
     def __init__(self, *args, **kwargs):
@@ -119,7 +118,6 @@ class PresenceCreateForm(BSModalModelForm):
             if self.child_pk is None:
                 self.fields['child'].queryset = Child.objects.filter(classroom=self.classroom,
                                                                      status=Child.STATUS.in_progress)
-
 
     def save(self, commit=True):
         if not self.request.is_ajax():
@@ -143,10 +141,9 @@ class PresenceDepartureForm(CreateUpdateAjaxMixin, forms.ModelForm):
     class Meta:
         model = Presence
         fields = ("arrival_time", "departure_time",)
-
         widgets = {
-            "departure_time": FaTimePickerInput(options={"locale": "fr"}),
-            "arrival_time": FaTimePickerInput(options={"locale": "fr"}),
+            "arrival_time": TimePickerInput(),
+            "departure_time": TimePickerInput(range_from="arrival_time"),
         }
 
     def __init__(self, *args, **kwargs):
@@ -181,10 +178,9 @@ class PresenceintermediateDepartureForm(CreateUpdateAjaxMixin, forms.ModelForm):
         fields = ("intermediate_departure_time", "intermediate_arrival_time")
 
         widgets = {
-            "intermediate_departure_time": FaTimePickerInput(options={"locale": "fr"}).start_of(
-                'presence days intermediate'),
-            "intermediate_arrival_time": FaTimePickerInput(options={"locale": "fr"}).end_of(
-                'presence days intermediate'),
+            "intermediate_arrival_time": TimePickerInput(),
+            "intermediate_departure_time": TimePickerInput(range_from="intermediate_arrival_time"),
+
         }
 
     def __init__(self, *args, **kwargs):
@@ -204,7 +200,7 @@ class ReceptionForm(BSModalModelForm):
         model = Reception
         fields = ["wake_up_time", "breakfast", "breakfast_time", "sleep", "sick", "fever", "condition", "comment"]
         widgets = {
-            "breakfast_time": FaTimePickerInput(options={"locale": "fr"}),
+            "breakfast_time": TimePickerInput(),
             "breakfast": InlineImgRadioInput(),
             "sleep": InlineImgRadioInput(),
             "condition": InlineImgRadioInput(),
@@ -223,9 +219,9 @@ class MealDailyFollowUpForm(BSModalModelForm):
             "lunch_meals": InlineImgMealCheckboxInput(),
             "afternoon_snack_quality": InlineImgRadioInput(),
             "afternoon_snack_meals": InlineImgMealCheckboxInput(),
-            "snack_time": FaTimePickerInput(options={"locale": "fr"}),
-            "lunch_time": FaTimePickerInput(options={"locale": "fr"}),
-            "afternoon_snack_time": FaTimePickerInput(options={"locale": "fr"}),
+            "snack_time": TimePickerInput(),
+            "lunch_time": TimePickerInput(),
+            "afternoon_snack_time": TimePickerInput(),
         }
 
     def full_clean(self):
@@ -259,10 +255,8 @@ class NapForm(BSModalModelForm):
         model = Nap
         fields = ["start_time", "end_time"]
         widgets = {
-            # "start_time": TimePickerInput(options={"locale": "fr"}),
-            "start_time": FaTimePickerInput(options={"locale": "fr"}).start_of('nap time'),
-            # "end_time": FaTimePickerInput(options={"locale": "fr"}),
-            "end_time": FaTimePickerInput(options={"locale": "fr"}).end_of('nap time'),
+            "start_time": TimePickerInput(),
+            "end_time": TimePickerInput(range_from="start_time"),
         }
 
 
@@ -271,8 +265,7 @@ class DiaperChangeForm(BSModalModelForm):
         model = DiaperChange
         fields = ["hour", "feces"]
         widgets = {
-            "hour": FaTimePickerInput(
-                options={"locale": "fr"}),
+            "hour": TimePickerInput(),
             "feces": InlineImgRadioInput(),
         }
 
@@ -300,8 +293,8 @@ class MedicationForm(BSModalModelForm):
         model = Medication
         fields = ["from_date", "end_date", "type_medication", "comment", "attachment"]
         widgets = {
-            "from_date": DatePickerInput(options={"locale": "fr", "format": "DD/MM/YYYY"}).start_of('medic days'),
-            "end_date": DatePickerInput(options={"locale": "fr", "format": "DD/MM/YYYY"}).end_of('medic days'),
+            "from_date": DatePickerInput(),
+            "end_date": DatePickerInput(range_from="from_date"),
         }
 
     def __init__(self, *args, **kwargs):
@@ -331,8 +324,8 @@ class GiveMedicationForm(BSModalModelForm):
         model = GiveMedication
         fields = ["staff", "give_hour", "given_hour"]
         widgets = {
-            "give_hour": FaTimePickerInput(options={"locale": "fr"}),
-            "given_hour": FaTimePickerInput(options={"locale": "fr"}),
+            "give_hour": TimePickerInput(),
+            "given_hour": TimePickerInput(),
         }
 
     def __init__(self, *args, **kwargs):
@@ -384,10 +377,7 @@ class ChoiceChildDateForm(forms.Form):
 
     date = forms.DateField(
         label=_("Date"),
-        widget=DatePickerInput(options={
-            "locale": "fr",
-            "format": "DD/MM/YYYY"
-        }),
+        widget=DatePickerInput(),
     )
 
     class Meta:
@@ -528,15 +518,11 @@ class GroupDailyFollowUpForm(ModelForm):
 
 
 class MultiDayMedicationForm(ModelForm):
-    give_hour = forms.TimeField(label=_("Give hour"), widget=TimePickerInput(options={"locale": "fr"}))
-    give_hour2 = forms.TimeField(label=_("Give hour") + " 2", widget=TimePickerInput(options={"locale": "fr"}),
-                                 required=False)
-    give_hour3 = forms.TimeField(label=_("Give hour") + " 3", widget=TimePickerInput(options={"locale": "fr"}),
-                                 required=False)
-    give_hour4 = forms.TimeField(label=_("Give hour") + " 4", widget=TimePickerInput(options={"locale": "fr"}),
-                                 required=False)
-    give_hour5 = forms.TimeField(label=_("Give hour") + " 5", widget=TimePickerInput(options={"locale": "fr"}),
-                                 required=False)
+    give_hour = forms.TimeField(label=_("Give hour"), widget=TimePickerInput())
+    give_hour2 = forms.TimeField(label=_("Give hour") + " 2", widget=TimePickerInput(), required=False)
+    give_hour3 = forms.TimeField(label=_("Give hour") + " 3", widget=TimePickerInput(), required=False)
+    give_hour4 = forms.TimeField(label=_("Give hour") + " 4", widget=TimePickerInput(), required=False)
+    give_hour5 = forms.TimeField(label=_("Give hour") + " 5", widget=TimePickerInput(), required=False)
     child = forms.ModelChoiceField(
         queryset=Child.objects.filter(status=Child.STATUS.in_progress).order_by("age_group",
                                                                                 'first_name',
@@ -557,8 +543,8 @@ class MultiDayMedicationForm(ModelForm):
         fields = ["child", "from_date", "end_date", "type_medication", "attachment", "comment", "give_hour",
                   "give_hour2", "give_hour3", "give_hour4", "give_hour5", ]
         widgets = {
-            "from_date": DatePickerInput(options={"locale": "fr", "format": "DD/MM/YYYY"}).start_of('medic days'),
-            "end_date": DatePickerInput(options={"locale": "fr", "format": "DD/MM/YYYY"}).end_of('medic days'),
+            "from_date": DatePickerInput(),
+            "end_date": DatePickerInput(range_from="from_date"),
         }
 
     def __init__(self, *args, **kwargs):
@@ -578,10 +564,7 @@ class MultiDayMedicationForm(ModelForm):
 class EarlyTroubleshootingForm(BSModalModelForm):
     date = forms.DateField(
         label=_("Date"),
-        widget=DatePickerInput(options={
-            "locale": "fr",
-            "format": "DD/MM/YYYY"
-        }),
+        widget=DatePickerInput(),
     )
 
     class Meta:

@@ -130,8 +130,7 @@
     {% include "includes/modal.html" %}
 {% endblock %}
 
-{% block extrajs %}
-    {{ block.super }}
+{% block importextrajs %}
     <script src="{% static 'js/moment-with-locales.min.js' %}"></script>
     <script src="{% static 'vendor/DataTables/datatables.min.js' %}"></script>
     <script src="{% static 'js/jquery.bootstrap.modal.forms.min.js' %}"></script>

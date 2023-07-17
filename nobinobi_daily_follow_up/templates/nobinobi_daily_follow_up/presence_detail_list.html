@@ -206,8 +206,7 @@
     {% include "includes/modal.html" %}
 {% endblock %}
 
-{% block extrajs %}
-    {{ block.super }}
+{% block importextrajs %}
     <script src="{% static 'vendor/DataTables/datatables.min.js' %}"></script>
     <script>
         function docReady(fn) {

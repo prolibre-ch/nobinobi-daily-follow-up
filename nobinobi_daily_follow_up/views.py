@@ -204,6 +204,13 @@ class PresenceDetailView(LoginRequiredMixin, DetailView):
 
 class PresenceDetailListView(LoginRequiredMixin, ListView):
     template_name = "nobinobi_daily_follow_up/presence_detail_list.html"
+    now = None
+
+    def __init__(self, *args, **kwargs):
+        self.now = timezone.localtime()
+        self.ets_child = self.get_ets_child(self.now)
+        super(PresenceDetailListView, self).__init__(*args, **kwargs)
+
 
     def get_queryset(self):
         return Presence.objects.filter(classroom=self.kwargs['pk'])
@@ -251,6 +258,7 @@ class PresenceDetailListView(LoginRequiredMixin, ListView):
                     children_normaly.remove(child)
 
         # ).distinct("first_name", "last_name"))
+
         # children_troubleshooting =
         children_missing = [abs.child for abs in
                             Absence.objects.filter(
@@ -278,6 +286,9 @@ class PresenceDetailListView(LoginRequiredMixin, ListView):
                 children_present.append(pres.child)
 
         children_list = []
+        for child in self.ets_child:
+            if child not in children_list:
+                children_list.append(child)
         for child in children_normaly:
             if child not in children_list:
                 children_list.append(child)
@@ -296,6 +307,17 @@ class PresenceDetailListView(LoginRequiredMixin, ListView):
         else:
             sorted_children_list = sorted(children_list, key=lambda x: x.usual_name)
         return sorted_children_list
+
+    @staticmethod
+    def get_ets_child(now):
+        # earlytroubelshooting
+        child_ets = []
+        ets = EarlyTroubleshooting.objects.filter(date=now.date())
+        for et in ets:
+            if et.periods.filter(start_time__lte=now.time(), end_time__gte=now.time()).exists():
+                if not et.child in child_ets:
+                    child_ets.append(et.child)
+        return child_ets
 
     def get_status_children(self, classroom, children_in_classroom, *date):
         """
@@ -356,6 +378,13 @@ class PresenceDetailListView(LoginRequiredMixin, ListView):
                                     if child.id not in children['present']:
                                         if child.id not in children['leave']:
                                             expected.append(child.id)
+        for child in self.ets_child:
+            if child.id not in expected:
+                if child.id not in children_missing:
+                    if child.id not in children['present']:
+                        if child.id not in children['leave']:
+                            expected.append(child.id)
+
         children['expected'] = expected
         status_children['expected'] = len(expected)
 

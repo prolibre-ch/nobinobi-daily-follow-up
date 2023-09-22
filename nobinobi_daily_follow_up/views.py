@@ -208,9 +208,8 @@ class PresenceDetailListView(LoginRequiredMixin, ListView):
 
     def __init__(self, *args, **kwargs):
         self.now = timezone.localtime()
-        self.ets_child = self.get_ets_child(self.now)
+        self.ets_child = None
         super(PresenceDetailListView, self).__init__(*args, **kwargs)
-
 
     def get_queryset(self):
         return Presence.objects.filter(classroom=self.kwargs['pk'])
@@ -221,6 +220,7 @@ class PresenceDetailListView(LoginRequiredMixin, ListView):
         context['display_age_group_in_presence'] = get_display_age_group_in_presence()
         context['now'] = now.date()
         context['classroom'] = get_object_or_404(Classroom, pk=self.kwargs['pk'])
+        self.ets_child = self.get_ets_child(self.now, context['classroom'])
         context['child_in_classroom'] = self.get_list_children(context['classroom'], now)
         context['status_children'], context['children'] = self.get_status_children(context['classroom'],
                                                                                    context['child_in_classroom'])
@@ -309,14 +309,21 @@ class PresenceDetailListView(LoginRequiredMixin, ListView):
         return sorted_children_list
 
     @staticmethod
-    def get_ets_child(now):
+    def get_ets_child(now, classroom):
         # earlytroubelshooting
         child_ets = []
-        ets = EarlyTroubleshooting.objects.filter(date=now.date())
+        ets = EarlyTroubleshooting.objects.filter(
+            Q(child__classroom=classroom) | (
+                Q(child__replacementclassroom__classroom=classroom) & Q(child__replacementclassroom__from_date__lte=now.date()) & (
+                Q(child__replacementclassroom__end_date__gte=now.date()) | Q(child__replacementclassroom__end_date__isnull=True))),
+            child__status=Child.STATUS.in_progress,
+            date=now.date()
+        )
         for et in ets:
-            if et.periods.filter(start_time__lte=now.time(), end_time__gte=now.time()).exists():
-                if not et.child in child_ets:
-                    child_ets.append(et.child)
+            if et.child.get_replacement_classroom(now.date()) == classroom:
+                if et.periods.filter(start_time__lte=now.time(), end_time__gte=now.time()).exists():
+                    if not et.child in child_ets:
+                        child_ets.append(et.child)
         return child_ets
 
     def get_status_children(self, classroom, children_in_classroom, *date):

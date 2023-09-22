@@ -3,6 +3,11 @@
 History
 -------
 
+0.1.2.11 (2023-09-22)
++++++++++++++++++++++++++
+* da1bdba - Fix bug with troubleshootin and presence day
+* Update requirements
+
 0.1.2.10 (2023-09-14)
 +++++++++++++++++++++++++
 

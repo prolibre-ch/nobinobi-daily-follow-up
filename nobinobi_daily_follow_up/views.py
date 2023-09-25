@@ -857,9 +857,15 @@ class PresenceWeekListView(LoginRequiredMixin, TemplateView):
                                                     period.order]["status"] = "absence"
 
         # early troubleshooting
-        early_troubleshootings = EarlyTroubleshooting.objects.filter(date__gte=week_dates_date[0],
-                                                                     date__lte=week_dates_date[-1],
-                                                                     child__classroom=classroom)
+        early_troubleshootings = EarlyTroubleshooting.objects.filter(
+            Q(child__classroom=classroom) |
+            (Q(child__replacementclassroom__classroom=classroom) & Q(
+                child__replacementclassroom__from_date__lte=week_dates[-1].date()) & (
+                 Q(child__replacementclassroom__end_date__gte=week_dates[0].date()) | Q(
+                 child__replacementclassroom__end_date__isnull=True))),
+            date__gte=week_dates_date[0],
+            date__lte=week_dates_date[-1],
+        )
         for et in early_troubleshootings:
             for per in et.periods.all():
                 dict_children[et.child][et.date.isoweekday()]["periods"][per.order][

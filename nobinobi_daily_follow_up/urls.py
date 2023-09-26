@@ -379,7 +379,7 @@ urlpatterns = [
                  ),
         ])),
         path("give-medication/", include([
-            path("~create/<int:medication>/",
+            path("~create/<int:medication>/<int:dfu>/",
                  view=views.GiveMedicationCreateView.as_view(),
                  name='GiveMedication_create'
                  ),

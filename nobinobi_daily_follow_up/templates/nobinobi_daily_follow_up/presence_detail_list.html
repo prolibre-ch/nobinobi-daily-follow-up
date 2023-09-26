@@ -612,7 +612,7 @@
                                             }
                                         }
                                     }
-                                    text += '<button data-id="{% url "nobinobi_daily_follow_up:GiveMedication_create" medication=123 %}" class="give-medication-create btn btn-secondary btn-group-xs btn-xs "><i class="fa fa-clock"></i> {% trans "Add hour" %}</button>'.replace(123, row.dailyfollowuptomedication_set[i].medication.pk);
+                                    text += '<button data-id="{% url "nobinobi_daily_follow_up:GiveMedication_create" medication=123 dfu=99999 %}" class="give-medication-create btn btn-secondary btn-group-xs btn-xs "><i class="fa fa-clock"></i> {% trans "Add hour" %}</button>'.replace(123, row.dailyfollowuptomedication_set[i].medication.pk).replace(99999, row.dailyfollowuptomedication_set[i].daily_follow_up);
                                     text += "</p>";
 
                                     if (row.dailyfollowuptomedication_set[i].medication.comment) {

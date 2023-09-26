@@ -2073,10 +2073,11 @@ class GiveMedicationCreateView(LoginRequiredMixin, BSModalCreateView):
         return super(GiveMedicationCreateView, self).form_valid(form)
 
     def get_success_url(self):
-        dfu = get_object_or_404(DailyFollowUp, presence_id=self.kwargs['daily_follow_up'])
+        dfu = get_object_or_404(DailyFollowUp, presence_id=self.kwargs['dfu'])
         classroom = dfu.presence.child.classroom_id
         child = dfu.presence.child_id
         date = dfu.presence.date
+
         next_url = self.request.GET.get('next')
         if next_url:
             url = reverse_lazy('nobinobi_daily_follow_up:DailyFollowUp_summary_week',

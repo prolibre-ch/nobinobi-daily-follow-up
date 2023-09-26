@@ -3,6 +3,11 @@
 History
 -------
 
+0.1.2.12 (2023-09-26)
++++++++++++++++++++++++++
+* a874478 - fix bug with give medication
+* b745491 - Fix for ets in presence week and remplacement classroom
+
 0.1.2.11 (2023-09-22)
 +++++++++++++++++++++++++
 * da1bdba - Fix bug with troubleshootin and presence day

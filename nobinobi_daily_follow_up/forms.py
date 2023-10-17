@@ -22,7 +22,7 @@ from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.db.models import Q
-from django.forms import ModelForm
+from django.forms import ModelForm, DateInput
 from django.forms.renderers import get_default_renderer
 from django.utils import timezone
 from django.utils.safestring import mark_safe
@@ -375,10 +375,8 @@ class ChoiceChildDateForm(forms.Form):
         required=True
     )
 
-    date = forms.DateField(
-        label=_("Date"),
-        widget=DatePickerInput(),
-    )
+    date = forms.DateField(label=_("Date"), widget=DateInput(attrs={"type": "date"}))
+
 
     class Meta:
         fields = ("child", "date")
@@ -562,10 +560,7 @@ class MultiDayMedicationForm(ModelForm):
 
 
 class EarlyTroubleshootingForm(BSModalModelForm):
-    date = forms.DateField(
-        label=_("Date"),
-        widget=DatePickerInput(),
-    )
+    date = forms.DateField(label=_("Date"), widget=DateInput(attrs={"type": "date"}))
 
     class Meta:
         model = EarlyTroubleshooting

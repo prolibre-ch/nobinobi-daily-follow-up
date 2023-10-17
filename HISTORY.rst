@@ -3,6 +3,13 @@
 History
 -------
 
+0.1.2.13 (2023-10-17)
++++++++++++++++++++++++++
+* be0312e - add field comment in diaper_change
+* c3795b6 - update str type for new python regex
+* 4715fe1 - Fix filtering by select face in presence day
+* Update requirements
+
 0.1.2.12 (2023-09-26)
 +++++++++++++++++++++++++
 * a874478 - fix bug with give medication

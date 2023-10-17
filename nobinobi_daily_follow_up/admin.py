@@ -21,7 +21,7 @@ from nobinobi_daily_follow_up.models import Meal, Lotion, Presence, DailyFollowU
 
 class DiaperChangeInline(admin.TabularInline):
     model = DiaperChange
-    fields = ("hour", "feces",)
+    fields = ("hour", "feces", "comment")
     # define the sortable
     # sortable_field_name = "position"
     # define sortable_excludes

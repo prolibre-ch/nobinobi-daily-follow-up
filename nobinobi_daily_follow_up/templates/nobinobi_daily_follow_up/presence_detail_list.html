@@ -504,6 +504,9 @@
                                     } else {
                                         text += " (<img width=20 height=20 src='{% static 'img/smiley/nothing.png' %}'>)<br/>";
                                     }
+                                    if (row.diaperchange_set[i].comment){
+                                        text += " " + row.diaperchange_set[i].comment + "<br/>";
+                                    }
                                     text += '<div class="btn-group-xs btn-xs">';
                                     {% if perms.nobinobi_daily_follow_up.change_diaperchange %}
                                         text += '<button data-id="{% url "nobinobi_daily_follow_up:DiaperChange_update" pk=123 %}" class="diaperchange-update btn btn-secondary btn-group-xs btn-xs "><i class="fa fa-edit"></i></button>'.replace(123, row.diaperchange_set[i].pk);

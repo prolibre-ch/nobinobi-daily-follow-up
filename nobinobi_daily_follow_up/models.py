@@ -260,6 +260,7 @@ class DiaperChange(TimeStampedModel):
     )
     hour = models.TimeField(_("Hour"))
     feces = models.CharField(_("Feces"), choices=FECES_CHOICES, default=FECES_CHOICES.nothing, max_length=15)
+    comment = SplitField(_("Comment"), blank=True, null=True)
 
     class Meta:
         ordering = ('daily_follow_up', 'hour',)

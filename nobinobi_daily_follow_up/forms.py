@@ -263,7 +263,7 @@ class NapForm(BSModalModelForm):
 class DiaperChangeForm(BSModalModelForm):
     class Meta:
         model = DiaperChange
-        fields = ["hour", "feces"]
+        fields = ["hour", "feces", "comment"]
         widgets = {
             "hour": TimePickerInput(),
             "feces": InlineImgRadioInput(),

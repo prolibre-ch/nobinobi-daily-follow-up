@@ -108,7 +108,7 @@
                                 </div>
                                 {% spaceless %}
                                     <a class="presence-create"
-                                        {% if child in children.present %}
+                                        {% if child.id in children.present %}
                                        onclick="filtering_datatable(this);"
                                         {% endif %}
                                        data-child-pk="{{ child.pk }}"

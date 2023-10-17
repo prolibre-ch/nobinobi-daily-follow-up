@@ -77,7 +77,7 @@ class NapSerializer(serializers.ModelSerializer):
 class DiaperChangeSerializer(serializers.ModelSerializer):
     class Meta:
         model = DiaperChange
-        fields = ["pk", "hour", "feces"]
+        fields = ["pk", "hour", "feces", "comment"]
 
 
 class LotionSerializer(serializers.ModelSerializer):

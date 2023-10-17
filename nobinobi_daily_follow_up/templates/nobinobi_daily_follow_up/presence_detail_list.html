@@ -108,7 +108,7 @@
                                 </div>
                                 {% spaceless %}
                                     <a class="presence-create"
-                                        {% if child in children.present %}
+                                        {% if child.id in children.present %}
                                        onclick="filtering_datatable(this);"
                                         {% endif %}
                                        data-child-pk="{{ child.pk }}"
@@ -503,6 +503,9 @@
                                         text += " (<img width=20 height=20 src='{% static 'img/smiley/caca.png' %}'>)<br/>";
                                     } else {
                                         text += " (<img width=20 height=20 src='{% static 'img/smiley/nothing.png' %}'>)<br/>";
+                                    }
+                                    if (row.diaperchange_set[i].comment){
+                                        text += " " + row.diaperchange_set[i].comment + "<br/>";
                                     }
                                     text += '<div class="btn-group-xs btn-xs">';
                                     {% if perms.nobinobi_daily_follow_up.change_diaperchange %}

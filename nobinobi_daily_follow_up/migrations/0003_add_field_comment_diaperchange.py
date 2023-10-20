@@ -10,8 +10,8 @@ import nobinobi_daily_follow_up.models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('nobinobi_staff', '0011_auto_20231017_1418'),
-        ('nobinobi_child', '0015_auto_20231017_1418'),
+        ('nobinobi_staff', '0010_auto_20201029_1500'),
+        ('nobinobi_child', '0014_auto_20230201_1155'),
         ('nobinobi_daily_follow_up', '0002_auto_20230201_1346'),
     ]
 

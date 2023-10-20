@@ -3,6 +3,10 @@
 History
 -------
 
+0.1.2.14 (2023-10-20)
++++++++++++++++++++++++++
+* bug fix migrations
+
 0.1.2.13 (2023-10-17)
 +++++++++++++++++++++++++
 * be0312e - add field comment in diaper_change

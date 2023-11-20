@@ -4,4 +4,4 @@ wheel==0.41.3
 zest.releaser==9.1.1
 bumpversion==0.6.0
 django-debug-toolbar==4.2.0
-werkzeug==3.0.0
+werkzeug==3.0.1

@@ -856,22 +856,30 @@ class PresenceWeekListView(LoginRequiredMixin, TemplateView):
                                                 dict_children[absence.child][date_absence.isoweekday()]["periods"][
                                                     period.order]["status"] = "absence"
 
-        # early troubleshooting
+        # Filtrer les EarlyTroubleshooting en fonction de plusieurs conditions
         early_troubleshootings = EarlyTroubleshooting.objects.filter(
-            Q(child__classroom=classroom) |
-            (Q(child__replacementclassroom__classroom=classroom) & Q(
-                child__replacementclassroom__from_date__lte=week_dates[-1].date()) & (
-                 Q(child__replacementclassroom__end_date__gte=week_dates[0].date()) | Q(
-                 child__replacementclassroom__end_date__isnull=True))),
+            # Filtrer les enfants associés à la salle de classe ou à la salle de classe de remplacement
+            Q(child__classroom=classroom) | (
+                Q(child__replacementclassroom__classroom=classroom) &
+                Q(child__replacementclassroom__from_date__lte=week_dates[-1].date()) &
+                (Q(child__replacementclassroom__end_date__gte=week_dates[0].date()) | Q(child__replacementclassroom__end_date__isnull=True))
+            ),
+            # Filtrer les dates dans la semaine spécifiée
             date__gte=week_dates_date[0],
             date__lte=week_dates_date[-1],
         )
+
+        # Itérer sur chaque instance de EarlyTroubleshooting
         for et in early_troubleshootings:
+            PresenceWeekListView.create_dict_struct_for_child(classroom_dayoffs, et, dict_children, period_for_day, week_dates, holidays,
+                                                              closures_dates)
+            # Itérer sur chaque période associée à l'instance de EarlyTroubleshooting
             for per in et.periods.all():
-                dict_children[et.child][et.date.isoweekday()]["periods"][per.order][
-                    'status'] = "troubleshooting"
-                dict_children[et.child][et.date.isoweekday()]["periods"][per.order][
-                    'troubleshooting'] = True
+                # Mise à jour de dict_children pour marquer la période comme en dépannage
+                dict_children[et.child][et.date.isoweekday()]["periods"][per.order]['status'] = "troubleshooting"
+                dict_children[et.child][et.date.isoweekday()]["periods"][per.order]['troubleshooting'] = True
+
+                # Mise à jour de dict_table pour augmenter le nombre attendu de dépannages pour la période
                 dict_table[et.date.isoweekday()]["periods"][per.order]['expected'] += 1
 
         # get child present

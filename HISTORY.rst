@@ -3,6 +3,11 @@
 History
 -------
 
+0.1.2.15 (2024-04-18)
++++++++++++++++++++++++++
+* 4159658 - Fix bug with early ts
+* update requirements
+
 0.1.2.14 (2023-10-20)
 +++++++++++++++++++++++++
 * bug fix migrations

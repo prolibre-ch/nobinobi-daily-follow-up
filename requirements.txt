@@ -1,4 +1,4 @@
-nobinobi-child==0.1.4.25
+nobinobi-child==0.1.4.27
 
 django-auto-one-to-one==3.3.5
 django-notifications-hq==1.8.3

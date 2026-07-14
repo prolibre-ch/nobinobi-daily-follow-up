@@ -33,8 +33,12 @@ def get_period_class(period: Dict[str, Any], classroom: Optional[Dict[str, Any]]
         replacement = period.get('replacement_classroom', None)
         classroom_from_per = period.get('classroom', None)
 
-        if replacement is not None and classroom is not None and replacement.id == classroom.id:
-            return "bg-troubleshooting"
+        if replacement is not None and classroom is not None:
+            if replacement.id == classroom.id:
+                return "bg-troubleshooting"
+            else:
+                return "bg-dark-gradient"
+
         if classroom_from_per is not None and classroom is not None and classroom_from_per.id == classroom.id:
             return "bg-troubleshooting"
 

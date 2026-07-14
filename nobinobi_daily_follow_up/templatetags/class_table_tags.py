@@ -15,10 +15,9 @@ def get_period_class(period, classroom: Optional['Classroom'] = None):
     Returns:
         str: Classe CSS correspondant au statut.
     """
-    if not hasattr(period, 'status'):
+    status = period.get('status')
+    if not isinstance(status, str):
         return "bg-gray"
-
-    status = period.status
 
     if status == "absence":
         return "bg-danger-gradient"
@@ -29,8 +28,8 @@ def get_period_class(period, classroom: Optional['Classroom'] = None):
     elif status == "troubleshooting":
         return "bg-troubleshooting"
     elif status == "replacement_classroom":
-        replacement = getattr(period, 'replacement_classroom', None)
-        if replacement is not None and hasattr(classroom, 'id') and replacement.id == classroom.id:
+        replacement = period.get('replacement_classroom')
+        if replacement is not None and replacement.id == classroom.id:
             return "bg-replacement-classroom"
         return "bg-dark-gradient"
     elif status == "expected":

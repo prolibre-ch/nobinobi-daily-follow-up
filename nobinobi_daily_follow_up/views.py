@@ -876,7 +876,7 @@ class PresenceWeekListView(LoginRequiredMixin, TemplateView):
                 # Mise à jour de dict_children pour marquer la période comme en dépannage
                 dict_children[et.child][et.date.isoweekday()]["periods"][per.order]['status'] = "troubleshooting"
                 dict_children[et.child][et.date.isoweekday()]["periods"][per.order]['troubleshooting'] = True
-                dict_children[et.child][et.date.isoweekday()]["periods"][per.order]['classroom'] = et.classroom
+                dict_children[et.child][et.date.isoweekday()]["periods"][per.order]['classroom'] = et.child.classroom
 
                 if et.child.has_replacement_classroom(et.date):
                     dict_children[et.child][et.date.isoweekday()]["periods"][per.order][
@@ -916,7 +916,7 @@ class PresenceWeekListView(LoginRequiredMixin, TemplateView):
                     # set information in dict_children
                     dict_children[ts.child][ts.date.isoweekday()]["periods"][period.order]["status"] = "troubleshooting"
                     dict_children[ts.child][ts.date.isoweekday()]["periods"][period.order]["troubleshooting"] = True
-                    dict_children[ts.child][ts.date.isoweekday()]["periods"][period.order]['classroom'] = ts.classroom
+                    dict_children[ts.child][ts.date.isoweekday()]["periods"][period.order]['classroom'] = ts.child.classroom
 
                     dict_table[ts.date.isoweekday()]["periods"][period.order]['present'] += 1
 

@@ -791,15 +791,13 @@ class PresenceWeekListView(LoginRequiredMixin, TemplateView):
 
                 if children_expected:
                     for child_to_period in children_expected:
-                        if child_to_period.child.get_now_classroom(date=week_date.date()) == classroom:
-                            dict_children[child_to_period.child][week_date.isoweekday()]["periods"][period_order][
-                                'status'] = "expected"
-                        else:
-                            dict_children[child_to_period.child][week_date.isoweekday()]["periods"][period_order][
-                                'status'] = "replacement_classroom"
+                        # if child_to_period.child.get_now_classroom(date=week_date.date()) == classroom:
+                        dict_children[child_to_period.child][week_date.isoweekday()]["periods"][period_order]['status'] = "expected"
+                        dict_children[child_to_period.child][week_date.isoweekday()]["periods"][period_order]['classroom'] = classroom
+                        # else:
                         if child_to_period.child.has_replacement_classroom(week_date.date()):
-                            dict_children[child_to_period.child][week_date.isoweekday()]["periods"][period_order][
-                                'replacement_classroom'] = True
+                            dict_children[child_to_period.child][week_date.isoweekday()]["periods"][period_order]['status'] = "replacement_classroom"
+                            dict_children[child_to_period.child][week_date.isoweekday()]["periods"][period_order]['replacement_classroom'] = child_to_period.child.get_now_classroom(date=week_date.date())
 
         absences = Absence.objects.filter(
             child__classroom=classroom,
@@ -875,14 +873,12 @@ class PresenceWeekListView(LoginRequiredMixin, TemplateView):
                                                               closures_dates)
             # Itérer sur chaque période associée à l'instance de EarlyTroubleshooting
             for per in et.periods.all():
-                rc = dict_children[et.child][et.date.isoweekday()]["periods"][per.order]['replacement_classroom']
-                if not rc or (rc and classroom != et.child.classroom):
-                    # Mise à jour de dict_children pour marquer la période comme en dépannage
-                    dict_children[et.child][et.date.isoweekday()]["periods"][per.order]['status'] = "troubleshooting"
-                    dict_children[et.child][et.date.isoweekday()]["periods"][per.order]['troubleshooting'] = True
+                # Mise à jour de dict_children pour marquer la période comme en dépannage
+                dict_children[et.child][et.date.isoweekday()]["periods"][per.order]['status'] = "troubleshooting"
+                dict_children[et.child][et.date.isoweekday()]["periods"][per.order]['troubleshooting'] = True
 
-                    # Mise à jour de dict_table pour augmenter le nombre attendu de dépannages pour la période
-                    dict_table[et.date.isoweekday()]["periods"][per.order]['expected'] += 1
+                # Mise à jour de dict_table pour augmenter le nombre attendu de dépannages pour la période
+                dict_table[et.date.isoweekday()]["periods"][per.order]['expected'] += 1
 
         # get child present
         children_present = Presence.objects.filter(date__in=week_dates, arrival_time__isnull=False, classroom=classroom)
@@ -997,6 +993,7 @@ class PresenceWeekListView(LoginRequiredMixin, TemplateView):
                             "holiday": False,
                             "closure": False,
                             "birthday": False,
+                            "classroom": None,
                             "replacement_classroom": None,
                         }
 

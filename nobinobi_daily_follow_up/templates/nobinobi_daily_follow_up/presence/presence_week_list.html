@@ -94,26 +94,25 @@
                                     {% else %}
                                         {% spaceless %}
                                             <td class="
-                                                {% if period.absence %}
-                                                bg-danger-gradient
-                                                {% elif period.status == "present" %}
-                                                bg-present
-                                                {% elif period.status == "leave" and period.troubleshooting %}
-                                                bg-troubleshooting-gradient
-                                                {% elif period.status == "leave" %}
-                                                bg-leave-gradient
-                                                {% elif period.status == "troubleshooting" %}
-                                                bg-troubleshooting
-                                                {% elif period.status == "replacement_classroom" %}
-                                                bg-dark-gradient
-                                                {% elif period.replacement_classroom %}
-                                                bg-replacement-classroom
-                                                {% elif period.status == "expected" %}
-                                                bg-warning-gradient
-                                                {% else %}
-                                                bg-gray
+                                                {% if period.absence %}bg-danger-gradient&nbsp;{% endif %}
+                                                {% if period.status == "present" %}bg-present&nbsp;{% endif %}
+                                                {% if period.status == "leave" %}
+                                                    {% if period.troubleshooting %}
+                                                        bg-troubleshooting-gradient&nbsp;
+                                                    {% else %}
+                                                        bg-leave-gradient&nbsp;
+                                                    {% endif %}
                                                 {% endif %}
-                                            ">
+
+                                                {% if period.replacement_classroom == classroom %}
+                                                    bg-replacement-classroom&nbsp;
+                                                {% else %}
+                                                    bg-dark-gradient&nbsp;
+                                                {% endif %}
+
+                                                {% if period.status == "troubleshooting" %}bg-troubleshooting&nbsp;{% endif %}
+                                                {% if period.status == "expected" %}bg-warning-gradient&nbsp;{% endif %}
+                                                bg-gray">
                                                 <a style="{% if period.status == "leave" or period.status == "replacement_classroom" %}color: #FFF;{% else %}color: #000;{% endif %}"
                                                    href="
                                                     {% if day_value.datetime.date == today.date %}

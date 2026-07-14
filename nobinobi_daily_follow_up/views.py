@@ -793,7 +793,7 @@ class PresenceWeekListView(LoginRequiredMixin, TemplateView):
                     for child_to_period in children_expected:
                         # if child_to_period.child.get_now_classroom(date=week_date.date()) == classroom:
                         dict_children[child_to_period.child][week_date.isoweekday()]["periods"][period_order]['status'] = "expected"
-                        dict_children[child_to_period.child][week_date.isoweekday()]["periods"][period_order]['classroom'] = classroom
+                        dict_children[child_to_period.child][week_date.isoweekday()]["periods"][period_order]['classroom'] = child_to_period.child.classroom
                         # else:
                         if child_to_period.child.has_replacement_classroom(week_date.date()):
                             dict_children[child_to_period.child][week_date.isoweekday()]["periods"][period_order]['status'] = "replacement_classroom"

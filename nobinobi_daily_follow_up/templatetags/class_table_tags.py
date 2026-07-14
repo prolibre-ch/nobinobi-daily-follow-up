@@ -29,14 +29,16 @@ def get_period_class(period, classroom: Optional['Classroom'] = None):
     elif status == "troubleshooting":
         replacement = period.get('replacement_classroom')
         if replacement is not None:
-            if replacement.id != classroom.id:
-                return "bg-replacement-classroom"
-            else:
+            if replacement.id == classroom.id:
                 return "bg-troubleshooting"
+            else:
+                return "bg-dark-gradient"
+
         classroom_from_per = period.get('classroom')
         if classroom_from_per is not None and classroom_from_per.id == classroom.id:
             return "bg-troubleshooting"
-        return "bg-dark-gradient"
+        else:
+            return "bg-dark-gradient"
 
     elif status == "replacement_classroom":
         replacement = period.get('replacement_classroom')

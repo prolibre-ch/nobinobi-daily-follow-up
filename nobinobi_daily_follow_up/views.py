@@ -877,6 +877,10 @@ class PresenceWeekListView(LoginRequiredMixin, TemplateView):
                 dict_children[et.child][et.date.isoweekday()]["periods"][per.order]['status'] = "troubleshooting"
                 dict_children[et.child][et.date.isoweekday()]["periods"][per.order]['troubleshooting'] = True
 
+                if per.child.has_replacement_classroom(et.date):
+                    dict_children[et.child][et.date.isoweekday()]["periods"][per.order][
+                        'replacement_classroom'] = per.child.get_now_classroom(date=et.date.date())
+
                 # Mise à jour de dict_table pour augmenter le nombre attendu de dépannages pour la période
                 dict_table[et.date.isoweekday()]["periods"][per.order]['expected'] += 1
 

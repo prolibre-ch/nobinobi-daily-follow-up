@@ -26,6 +26,9 @@ def get_period_class(period, classroom: Optional['Classroom'] = None):
     elif status == "leave":
         return "bg-troubleshooting-gradient" if getattr(period, 'troubleshooting', False) else "bg-leave-gradient"
     elif status == "troubleshooting":
+        replacement = period.get('replacement_classroom')
+        if replacement is not None and replacement.id != classroom.id:
+            return "bg-replacement-classroom"
         return "bg-troubleshooting"
     elif status == "replacement_classroom":
         replacement = period.get('replacement_classroom')

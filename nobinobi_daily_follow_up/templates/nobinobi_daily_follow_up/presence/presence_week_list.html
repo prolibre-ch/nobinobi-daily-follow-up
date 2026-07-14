@@ -92,24 +92,14 @@
                                     {% elif not period.status %}
                                         <td class="bg-dark-gradient">&nbsp;</td>
                                     {% else %}
-                                        <td class="{% if period.absence %}bg-danger-gradient&nbsp;{% endif %}
-                                            {% if period.status == "present" %}bg-present&nbsp;{% endif %}
+                                        <td class="{% if period.absence %}bg-danger-gradient{% endif %}
+                                            {% if period.status == "present" %}bg-present{% endif %}
                                             {% if period.status == "leave" %}
-                                                {% if period.troubleshooting %}
-                                                    bg-troubleshooting-gradient&nbsp;
-                                                {% else %}
-                                                    bg-leave-gradient&nbsp;
-                                                {% endif %}
+                                                {% if period.troubleshooting %}bg-troubleshooting-gradient{% else %}bg-leave-gradient{% endif %}
                                             {% endif %}
-
-                                            {% if period.replacement_classroom == classroom %}
-                                                bg-replacement-classroom&nbsp;
-                                            {% else %}
-                                                bg-dark-gradient&nbsp;
-                                            {% endif %}
-
-                                            {% if period.status == "troubleshooting" %}bg-troubleshooting&nbsp;{% endif %}
-                                            {% if period.status == "expected" %}bg-warning-gradient&nbsp;{% endif %}bg-gray"
+                                            {% if period.replacement_classroom == classroom %}bg-replacement-classroom{% else %}bg-dark-gradient{% endif %}
+                                            {% if period.status == "troubleshooting" %}bg-troubleshooting{% endif %}
+                                            {% if period.status == "expected" %}bg-warning-gradient{% endif %} bg-gray"
                                         >
                                             <a style="{% if period.status == "leave" or period.status == "replacement_classroom" %}color: #FFF;{% else %}color: #000;{% endif %}"
                                                href="

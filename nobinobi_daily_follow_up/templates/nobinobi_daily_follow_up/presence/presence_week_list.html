@@ -1,3 +1,4 @@
+{% load class_table_tags %}
 <!--
   ~   Copyright (C) Prolibre Sarl 2019 <Florian Alu> <alu@prolibre.com>
   ~
@@ -92,15 +93,7 @@
                                     {% elif not period.status %}
                                         <td class="bg-dark-gradient">&nbsp;</td>
                                     {% else %}
-                                        <td class="{% if period.absence %}bg-danger-gradient{% endif %}
-                                            {% if period.status == "present" %}bg-present{% endif %}
-                                            {% if period.status == "leave" %}
-                                                {% if period.troubleshooting %}bg-troubleshooting-gradient{% else %}bg-leave-gradient{% endif %}
-                                            {% endif %}
-                                            {% if period.replacement_classroom == classroom %}bg-replacement-classroom{% else %}bg-dark-gradient{% endif %}
-                                            {% if period.status == "troubleshooting" %}bg-troubleshooting{% endif %}
-                                            {% if period.status == "expected" %}bg-warning-gradient{% endif %} bg-gray"
-                                        >
+                                        <td class="{% get_period_class period classroom %}">
                                             <a style="{% if period.status == "leave" or period.status == "replacement_classroom" %}color: #FFF;{% else %}color: #000;{% endif %}"
                                                href="
                                                     {% if day_value.datetime.date == today.date %}
@@ -110,8 +103,7 @@
                                                     {% url 'nobinobi_daily_follow_up:DailyFollowUp_summary_week' pk=child.id date=day_value.datetime.date %}
                                                     {% endif %}
                                                 ">{{ child.usual_name }}</a>
-                                            <a href="{% url 'nobinobi_child:Child_detail' pk=child.pk %}"><i
-                                                class="far fa-eye"></i></a>
+                                            <a href="{% url 'nobinobi_child:Child_detail' pk=child.pk %}"><i class="far fa-eye"></i></a>
                                             {% if period.birthday %}
                                                 <i class="fas fa-birthday-cake"></i>
                                             {% endif %}

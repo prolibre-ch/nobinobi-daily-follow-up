@@ -1,4 +1,3 @@
-{% load class_table_tags %}
 <!--
   ~   Copyright (C) Prolibre Sarl 2019 <Florian Alu> <alu@prolibre.com>
   ~
@@ -16,7 +15,7 @@
   ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
   -->
 {% extends "nobinobi_daily_follow_up/base.html" %}
-{% load i18n static crispy_forms_tags replacement_classroom_tags %}
+{% load i18n static crispy_forms_tags replacement_classroom_tags class_table_tags%}
 
 {% block title %}{{ title }} - {{ classroom }} - {{ now }}{% endblock %}
 

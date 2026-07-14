@@ -92,29 +92,17 @@
                                     {% elif not period.status %}
                                         <td class="bg-dark-gradient">&nbsp;</td>
                                     {% else %}
-                                        {% spaceless %}
-                                            <td class="
-                                                {% if period.absence %}bg-danger-gradient&nbsp;{% endif %}
-                                                {% if period.status == "present" %}bg-present&nbsp;{% endif %}
-                                                {% if period.status == "leave" %}
-                                                    {% if period.troubleshooting %}
-                                                        bg-troubleshooting-gradient&nbsp;
-                                                    {% else %}
-                                                        bg-leave-gradient&nbsp;
-                                                    {% endif %}
-                                                {% endif %}
-
-                                                {% if period.replacement_classroom == classroom %}
-                                                    bg-replacement-classroom&nbsp;
-                                                {% else %}
-                                                    bg-dark-gradient&nbsp;
-                                                {% endif %}
-
-                                                {% if period.status == "troubleshooting" %}bg-troubleshooting&nbsp;{% endif %}
-                                                {% if period.status == "expected" %}bg-warning-gradient&nbsp;{% endif %}
-                                                bg-gray">
-                                                <a style="{% if period.status == "leave" or period.status == "replacement_classroom" %}color: #FFF;{% else %}color: #000;{% endif %}"
-                                                   href="
+                                        <td class="{% if period.absence %}bg-danger-gradient{% endif %}
+                                            {% if period.status == "present" %}bg-present{% endif %}
+                                            {% if period.status == "leave" %}
+                                                {% if period.troubleshooting %}bg-troubleshooting-gradient{% else %}bg-leave-gradient{% endif %}
+                                            {% endif %}
+                                            {% if period.replacement_classroom == classroom %}bg-replacement-classroom{% else %}bg-dark-gradient{% endif %}
+                                            {% if period.status == "troubleshooting" %}bg-troubleshooting{% endif %}
+                                            {% if period.status == "expected" %}bg-warning-gradient{% endif %} bg-gray"
+                                        >
+                                            <a style="{% if period.status == "leave" or period.status == "replacement_classroom" %}color: #FFF;{% else %}color: #000;{% endif %}"
+                                               href="
                                                     {% if day_value.datetime.date == today.date %}
                                                     {% get_replacement_classroom_id child=child date=day_value.datetime.date as current_classroom_id %}
                                                     {% url 'nobinobi_daily_follow_up:Presence_detail_list' current_classroom_id %}
@@ -122,20 +110,18 @@
                                                     {% url 'nobinobi_daily_follow_up:DailyFollowUp_summary_week' pk=child.id date=day_value.datetime.date %}
                                                     {% endif %}
                                                 ">{{ child.usual_name }}</a>
-                                                <a href="{% url 'nobinobi_child:Child_detail' pk=child.pk %}"><i
-                                                    class="far fa-eye"></i></a>
-                                                {% if period.birthday %}
-                                                    <i class="fas fa-birthday-cake"></i>
-                                                {% endif %}
-                                                {% if child.childspecificneed %}
-                                                    <i class='fas fa-exclamation-triangle'></i>
-                                                {% endif %}
-                                                {% if display_age_group_in_presence %}
-                                                    <small>({{ child.age_group.name.0 }})</small> {% endif %}
-                                                {% if period.absence %}
-                                                    <small>({{ period.absence.type }})</small>{% endif %}</td>
-                                        {% endspaceless %}
-
+                                            <a href="{% url 'nobinobi_child:Child_detail' pk=child.pk %}"><i
+                                                class="far fa-eye"></i></a>
+                                            {% if period.birthday %}
+                                                <i class="fas fa-birthday-cake"></i>
+                                            {% endif %}
+                                            {% if child.childspecificneed %}
+                                                <i class='fas fa-exclamation-triangle'></i>
+                                            {% endif %}
+                                            {% if display_age_group_in_presence %}
+                                                <small>({{ child.age_group.name.0 }})</small> {% endif %}
+                                            {% if period.absence %}
+                                                <small>({{ period.absence.type }})</small>{% endif %}</td>
                                     {% endif %}
                                 {% empty %}
                                     <td class="bg-dark-gradient">&nbsp;</td>
